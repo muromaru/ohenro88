@@ -77,3 +77,101 @@ h1 {
     border-radius: 6px;
     font-size: 14px;
 }
+
+/* ========================================
+   札所詳細パネル
+   ======================================== */
+
+#temple-detail {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    background: white;
+
+    border-radius: 20px 20px 0 0;
+
+    box-shadow: 0 -3px 15px rgba(0, 0, 0, 0.2);
+
+    z-index: 1000;
+
+    max-height: 60vh;
+
+    overflow-y: auto;
+
+    transition: transform 0.3s ease;
+}
+
+/* 非表示 */
+#temple-detail.hidden {
+    display: none;
+}
+
+/* ヘッダー */
+.detail-header {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 15px 20px;
+
+    border-bottom: 1px solid #ddd;
+}
+
+.detail-header h2 {
+    margin: 0;
+
+    font-size: 20px;
+}
+
+/* 閉じるボタン */
+#detail-close {
+    border: none;
+
+    background: none;
+
+    font-size: 28px;
+
+    width: 40px;
+    height: 40px;
+}
+
+/* 詳細 */
+.detail-content {
+    padding: 20px;
+}
+
+#detail-address {
+    line-height: 1.6;
+
+    color: #555;
+}
+
+/* 訪問状態 */
+#detail-status {
+    margin: 20px 0;
+
+    font-size: 16px;
+}
+
+/* 訪問ボタン */
+#detail-visit-button {
+    width: 100%;
+
+    padding: 14px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    background: #4caf50;
+
+    color: white;
+}
