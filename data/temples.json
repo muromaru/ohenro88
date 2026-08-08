@@ -1,0 +1,42 @@
+[
+  {
+    "number": 1,
+    "name": "霊山寺",
+    "prefecture": "徳島県",
+    "address": "鳴門市大麻町板東字塚鼻126",
+    "latitude": 34.1547,
+    "longitude": 134.4654
+  },
+  {
+    "number": 2,
+    "name": "極楽寺",
+    "prefecture": "徳島県",
+    "address": "鳴門市大麻町檜字段の上12",
+    "latitude": 34.1559,
+    "longitude": 134.4685
+  },
+  {
+    "number": 3,
+    "name": "金泉寺",
+    "prefecture": "徳島県",
+    "address": "板野郡板野町大寺字亀山下66",
+    "latitude": 34.1455,
+    "longitude": 134.4590
+  },
+  {
+    "number": 4,
+    "name": "大日寺",
+    "prefecture": "徳島県",
+    "address": "板野郡板野町黒谷字居内5",
+    "latitude": 34.1300,
+    "longitude": 134.4230
+  },
+  {
+    "number": 5,
+    "name": "地蔵寺",
+    "prefecture": "徳島県",
+    "address": "板野郡板野町羅漢字林東5",
+    "latitude": 34.1150,
+    "longitude": 134.4180
+  }
+]
