@@ -310,5 +310,213 @@
     "address": "宿毛市平田町中山390",
     "latitude": 32.961306,
     "longitude": 132.774056
+  },
+  {
+    "number": 40,
+    "name": "観自在寺",
+    "prefecture": "愛媛県",
+    "address": "南宇和郡愛南町御荘平城2253-1",
+    "latitude": 32.96472,
+    "longitude": 132.56417
+  },
+  {
+    "number": 41,
+    "name": "龍光寺",
+    "prefecture": "愛媛県",
+    "address": "宇和島市三間町戸雁173",
+    "latitude": 33.296,
+    "longitude": 132.598
+  },
+  {
+    "number": 42,
+    "name": "佛木寺",
+    "prefecture": "愛媛県",
+    "address": "宇和島市三間町則1683",
+    "latitude": 33.270,
+    "longitude": 132.612
+  },
+  {
+    "number": 43,
+    "name": "明石寺",
+    "prefecture": "愛媛県",
+    "address": "西予市宇和町明石201",
+    "latitude": 33.369,
+    "longitude": 132.515
+  },
+  {
+    "number": 44,
+    "name": "大寶寺",
+    "prefecture": "愛媛県",
+    "address": "上浮穴郡久万高原町菅生1173",
+    "latitude": 33.615,
+    "longitude": 132.999
+  },
+  {
+    "number": 45,
+    "name": "岩屋寺",
+    "prefecture": "愛媛県",
+    "address": "上浮穴郡久万高原町七鳥1468",
+    "latitude": 33.65886,
+    "longitude": 132.98083
+  },
+  {
+    "number": 46,
+    "name": "浄瑠璃寺",
+    "prefecture": "愛媛県",
+    "address": "松山市浄瑠璃町282",
+    "latitude": 33.75372,
+    "longitude": 132.81908
+  },
+  {
+    "number": 47,
+    "name": "八坂寺",
+    "prefecture": "愛媛県",
+    "address": "松山市浄瑠璃町八坂773",
+    "latitude": 33.792,
+    "longitude": 132.812
+  },
+  {
+    "number": 48,
+    "name": "西林寺",
+    "prefecture": "愛媛県",
+    "address": "松山市高井町1007",
+    "latitude": 33.792,
+    "longitude": 132.812
+  },
+  {
+    "number": 49,
+    "name": "浄土寺",
+    "prefecture": "愛媛県",
+    "address": "松山市鷹子町1198",
+    "latitude": 33.816766,
+    "longitude": 132.807885
+  },
+  {
+    "number": 50,
+    "name": "繁多寺",
+    "prefecture": "愛媛県",
+    "address": "松山市畑寺町32",
+    "latitude": 33.82450,
+    "longitude": 132.80672
+  },
+  {
+    "number": 51,
+    "name": "石手寺",
+    "prefecture": "愛媛県",
+    "address": "松山市石手二丁目9-21",
+    "latitude": 33.85069,
+    "longitude": 132.79728
+  },
+  {
+    "number": 52,
+    "name": "太山寺",
+    "prefecture": "愛媛県",
+    "address": "松山市太山寺町1730",
+    "latitude": 33.88125,
+    "longitude": 132.71736
+  },
+  {
+    "number": 53,
+    "name": "圓明寺",
+    "prefecture": "愛媛県",
+    "address": "松山市和気町1-182",
+    "latitude": 33.88792,
+    "longitude": 132.74225
+  },
+  {
+    "number": 54,
+    "name": "延命寺",
+    "prefecture": "愛媛県",
+    "address": "今治市阿方甲636",
+    "latitude": 34.06339,
+    "longitude": 132.96669
+  },
+  {
+    "number": 55,
+    "name": "南光坊",
+    "prefecture": "愛媛県",
+    "address": "今治市別宮町3丁目1-1",
+    "latitude": 34.06344,
+    "longitude": 132.99843
+  },
+  {
+    "number": 56,
+    "name": "泰山寺",
+    "prefecture": "愛媛県",
+    "address": "今治市小泉1-9-18",
+    "latitude": 34.050102,
+    "longitude": 132.974611
+  },
+  {
+    "number": 57,
+    "name": "栄福寺",
+    "prefecture": "愛媛県",
+    "address": "今治市玉川町八幡甲200",
+    "latitude": 34.025,
+    "longitude": 132.98078
+  },
+  {
+    "number": 58,
+    "name": "仙遊寺",
+    "prefecture": "愛媛県",
+    "address": "今治市玉川町別所甲483",
+    "latitude": 34.016,
+    "longitude": 132.943
+  },
+  {
+    "number": 59,
+    "name": "国分寺",
+    "prefecture": "愛媛県",
+    "address": "今治市国分4-1-33",
+    "latitude": 34.004,
+    "longitude": 133.020
+  },
+  {
+    "number": 60,
+    "name": "横峰寺",
+    "prefecture": "愛媛県",
+    "address": "西条市小松町石鎚甲2253",
+    "latitude": 33.855,
+    "longitude": 133.115
+  },
+  {
+    "number": 61,
+    "name": "香園寺",
+    "prefecture": "愛媛県",
+    "address": "西条市小松町南川甲19",
+    "latitude": 33.910,
+    "longitude": 133.104
+  },
+  {
+    "number": 62,
+    "name": "宝寿寺",
+    "prefecture": "愛媛県",
+    "address": "西条市小松町新屋敷甲428",
+    "latitude": 33.916,
+    "longitude": 133.101
+  },
+  {
+    "number": 63,
+    "name": "吉祥寺",
+    "prefecture": "愛媛県",
+    "address": "西条市氷見乙1048",
+    "latitude": 33.920,
+    "longitude": 133.095
+  },
+  {
+    "number": 64,
+    "name": "前神寺",
+    "prefecture": "愛媛県",
+    "address": "西条市洲之内甲1426",
+    "latitude": 33.908,
+    "longitude": 133.176
+  },
+  {
+    "number": 65,
+    "name": "三角寺",
+    "prefecture": "愛媛県",
+    "address": "四国中央市金田町三角寺甲75",
+    "latitude": 33.981,
+    "longitude": 133.620
   }
 ]
