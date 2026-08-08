@@ -518,5 +518,190 @@
     "address": "四国中央市金田町三角寺甲75",
     "latitude": 33.981,
     "longitude": 133.620
+  },
+  {
+    "number": 66,
+    "name": "雲辺寺",
+    "prefecture": "徳島県",
+    "address": "三好市池田町白地ノロウチ763-2",
+    "latitude": 34.022,
+    "longitude": 133.696
+  },
+  {
+    "number": 67,
+    "name": "大興寺",
+    "prefecture": "香川県",
+    "address": "三豊市山本町辻4209",
+    "latitude": 34.129,
+    "longitude": 133.716
+  },
+  {
+    "number": 68,
+    "name": "神恵院",
+    "prefecture": "香川県",
+    "address": "観音寺市八幡町1-2-7",
+    "latitude": 34.129,
+    "longitude": 133.655
+  },
+  {
+    "number": 69,
+    "name": "観音寺",
+    "prefecture": "香川県",
+    "address": "観音寺市八幡町1-2-7",
+    "latitude": 34.129,
+    "longitude": 133.655
+  },
+  {
+    "number": 70,
+    "name": "本山寺",
+    "prefecture": "香川県",
+    "address": "三豊市豊中町本山甲1445",
+    "latitude": 34.140,
+    "longitude": 133.694
+  },
+  {
+    "number": 71,
+    "name": "弥谷寺",
+    "prefecture": "香川県",
+    "address": "三豊市三野町大見乙70",
+    "latitude": 34.239,
+    "longitude": 133.738
+  },
+  {
+    "number": 72,
+    "name": "曼荼羅寺",
+    "prefecture": "香川県",
+    "address": "善通寺市吉原町1380-1",
+    "latitude": 34.238,
+    "longitude": 133.762
+  },
+  {
+    "number": 73,
+    "name": "出釈迦寺",
+    "prefecture": "香川県",
+    "address": "善通寺市吉原町1091",
+    "latitude": 34.241,
+    "longitude": 133.772
+  },
+  {
+    "number": 74,
+    "name": "甲山寺",
+    "prefecture": "香川県",
+    "address": "善通寺市弘田町1765-1",
+    "latitude": 34.226,
+    "longitude": 133.770
+  },
+  {
+    "number": 75,
+    "name": "善通寺",
+    "prefecture": "香川県",
+    "address": "善通寺市善通寺町3-3-1",
+    "latitude": 34.225,
+    "longitude": 133.773
+  },
+  {
+    "number": 76,
+    "name": "金倉寺",
+    "prefecture": "香川県",
+    "address": "善通寺市金蔵寺町1160",
+    "latitude": 34.249,
+    "longitude": 133.776
+  },
+  {
+    "number": 77,
+    "name": "道隆寺",
+    "prefecture": "香川県",
+    "address": "仲多度郡多度津町北鴨1-3-30",
+    "latitude": 34.267,
+    "longitude": 133.750
+  },
+  {
+    "number": 78,
+    "name": "郷照寺",
+    "prefecture": "香川県",
+    "address": "綾歌郡宇多津町1435",
+    "latitude": 34.310,
+    "longitude": 133.816
+  },
+  {
+    "number": 79,
+    "name": "天皇寺",
+    "prefecture": "香川県",
+    "address": "坂出市西庄町天皇1713-2",
+    "latitude": 34.319,
+    "longitude": 133.852
+  },
+  {
+    "number": 80,
+    "name": "國分寺",
+    "prefecture": "香川県",
+    "address": "高松市国分寺町国分2065",
+    "latitude": 34.302,
+    "longitude": 133.932
+  },
+  {
+    "number": 81,
+    "name": "白峯寺",
+    "prefecture": "香川県",
+    "address": "坂出市青海町2635",
+    "latitude": 34.333,
+    "longitude": 133.911
+  },
+  {
+    "number": 82,
+    "name": "根香寺",
+    "prefecture": "香川県",
+    "address": "高松市中山町1506",
+    "latitude": 34.354,
+    "longitude": 133.957
+  },
+  {
+    "number": 83,
+    "name": "一宮寺",
+    "prefecture": "香川県",
+    "address": "高松市一宮町607",
+    "latitude": 34.289,
+    "longitude": 134.027
+  },
+  {
+    "number": 84,
+    "name": "屋島寺",
+    "prefecture": "香川県",
+    "address": "高松市屋島東町1808",
+    "latitude": 34.364,
+    "longitude": 134.104
+  },
+  {
+    "number": 85,
+    "name": "八栗寺",
+    "prefecture": "香川県",
+    "address": "高松市牟礼町牟礼3416",
+    "latitude": 34.340,
+    "longitude": 134.146
+  },
+  {
+    "number": 86,
+    "name": "志度寺",
+    "prefecture": "香川県",
+    "address": "さぬき市志度1102",
+    "latitude": 34.323,
+    "longitude": 134.174
+  },
+  {
+    "number": 87,
+    "name": "長尾寺",
+    "prefecture": "香川県",
+    "address": "さぬき市長尾西653",
+    "latitude": 34.267,
+    "longitude": 134.171
+  },
+  {
+    "number": 88,
+    "name": "大窪寺",
+    "prefecture": "香川県",
+    "address": "さぬき市多和兼割96",
+    "latitude": 34.169,
+    "longitude": 134.177
   }
+]
 ]
