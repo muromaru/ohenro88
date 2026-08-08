@@ -21,33 +21,54 @@ fetch("data/temples.json")
     .then(response => response.json())
     .then(temples => {
 
-        // 88ヶ所を1件ずつ処理
+        const markers = [];
+
         temples.forEach(temple => {
 
-            // ピンを作る
-              const marker = L.marker(
-    [temple.latitude, temple.longitude],
-    {
-        icon: L.divIcon({
-            className: "temple-marker",
-            html: `<div>${temple.number}</div>`,
-            iconSize: [32, 32],
-            iconAnchor: [16, 16]
-        })
-    }
-).addTo(map);
+            // 番号付きピン
+            const marker = L.marker(
+                [
+                    temple.latitude,
+                    temple.longitude
+                ],
+                {
+                    icon: L.divIcon({
+                        className: "temple-marker",
+                        html: `<div>${temple.number}</div>`,
+                        iconSize: [32, 32],
+                        iconAnchor: [16, 16]
+                    })
+                }
+            ).addTo(map);
 
-            // ピンをタップしたときの情報
+            // タップしたときの情報
             marker.bindPopup(`
-                <strong>第${temple.number}番 ${temple.name}</strong>
+                <strong>
+                    第${temple.number}番 ${temple.name}
+                </strong>
                 <br>
                 ${temple.prefecture}
                 <br>
                 ${temple.address}
             `);
+
+            markers.push(marker);
         });
+
+        // 88ヶ所すべてが画面に入るようにする
+        if (markers.length > 0) {
+
+            const group = L.featureGroup(markers);
+
+            map.fitBounds(group.getBounds(), {
+                padding: [30, 30]
+            });
+        }
 
     })
     .catch(error => {
-        console.error("寺データの読み込みに失敗しました:", error);
+        console.error(
+            "寺データの読み込みに失敗しました:",
+            error
+        );
     });
