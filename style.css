@@ -143,3 +143,35 @@ h1 {
     color: white;
     cursor: pointer;
 }
+
+/* ========================================
+   訪問日
+   ======================================== */
+
+.visit-date-area {
+    margin: 20px 0;
+}
+
+.visit-date-area label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    font-weight: bold;
+}
+
+#visit-date {
+    width: 100%;
+
+    padding: 12px;
+
+    box-sizing: border-box;
+
+    border: 1px solid #ccc;
+
+    border-radius: 8px;
+
+    font-size: 16px;
+
+    background: white;
+}
