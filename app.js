@@ -1,3 +1,31 @@
+import { initializeApp } 
+    from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
+
+import {
+    getStorage,
+    ref,
+    uploadBytes,
+    getDownloadURL
+} from "https://www.gstatic.com/firebasejs/12.16.0/firebase-storage.js";
+
+
+// ========================================
+// Firebase
+// ========================================
+
+const firebaseConfig = {
+    apiKey: "AIzaSyAuwXe21V2eMiUW2TudECgHkVoHY3-XlCU",
+    authDomain: "ohenro88-e3cb1.firebaseapp.com",
+    projectId: "ohenro88-e3cb1",
+    storageBucket: "ohenro88-e3cb1.firebasestorage.app",
+    messagingSenderId: "643685913931",
+    appId: "1:643685913931:web:51354d87882b02609404ce"
+};
+
+const firebaseApp = initializeApp(firebaseConfig);
+
+const storage = getStorage(firebaseApp);
+
 // ========================================
 // 四国八十八ヶ所マップ
 // ========================================
