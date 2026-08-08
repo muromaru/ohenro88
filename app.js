@@ -25,10 +25,17 @@ fetch("data/temples.json")
         temples.forEach(temple => {
 
             // ピンを作る
-            const marker = L.marker([
-                temple.latitude,
-                temple.longitude
-            ]).addTo(map);
+              const marker = L.marker(
+    [temple.latitude, temple.longitude],
+    {
+        icon: L.divIcon({
+            className: "temple-marker",
+            html: `<div>${temple.number}</div>`,
+            iconSize: [32, 32],
+            iconAnchor: [16, 16]
+        })
+    }
+).addTo(map);
 
             // ピンをタップしたときの情報
             marker.bindPopup(`
