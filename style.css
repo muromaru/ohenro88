@@ -1,0 +1,24 @@
+/* ページ全体 */
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+/* タイトル */
+header {
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+}
+h1 {
+    margin: 0;
+    font-size: 20px;
+}
+/* 地図 */
+#map {
+    height: calc(100vh - 60px);
+    width: 100%;
+}
