@@ -32,6 +32,63 @@ function saveVisitData(data) {
         JSON.stringify(data)
     );
 }
+
+// ========================================
+// 札所詳細画面
+// ========================================
+
+let currentTempleNumber = null;
+
+function openTempleDetail(temple) {
+
+    currentTempleNumber = temple.number;
+
+    const visitData = getVisitData();
+    const visit = visitData[temple.number];
+
+    document.getElementById("detail-title").textContent =
+        `第${temple.number}番 ${temple.name}`;
+
+    document.getElementById("detail-address").innerHTML =
+        `${temple.prefecture}<br>${temple.address}`;
+
+    updateDetailStatus(visit);
+
+    document.getElementById("temple-detail")
+        .classList.remove("hidden");
+}
+
+function updateDetailStatus(visit) {
+
+    const status =
+        document.getElementById("detail-status");
+
+    const button =
+        document.getElementById("detail-visit-button");
+
+    if (visit) {
+
+        status.innerHTML = `
+            <div class="visited-info">
+                🟢 訪問済み<br>
+                訪問日：${formatDate(visit.date)}
+            </div>
+        `;
+
+        button.textContent = "未訪問に戻す";
+
+    } else {
+
+        status.innerHTML = `
+            <div class="not-visited">
+                🔴 未訪問
+            </div>
+        `;
+
+        button.textContent = "訪問済みにする";
+    }
+}
+
 // ========================================
 // 訪問状態を変更
 // ========================================
@@ -112,50 +169,11 @@ function loadTemples() {
                     }
                 ).addTo(map);
                 // ------------------------------
-                // 詳細情報
-                // ------------------------------
-                let visitHtml = "";
-                if (visited) {
-                    visitHtml = `
-                        <div class="visited-info">
-                            🟢 訪問済み<br>
-                            訪問日：${formatDate(visit.date)}
-                        </div>
-                        <button
-                            onclick="toggleVisited(${temple.number})"
-                        >
-                            未訪問に戻す
-                        </button>
-                    `;
-                } else {
-                    visitHtml = `
-                        <div class="not-visited">
-                            🔴 未訪問
-                        </div>
-                        <button
-                            onclick="toggleVisited(${temple.number})"
-                        >
-                            訪問済みにする
-                        </button>
-                    `;
-                }
-                // ------------------------------
                 // ポップアップ
                 // ------------------------------
-                marker.bindPopup(`
-                    <div class="temple-popup">
-                        <h3>
-                            第${temple.number}番
-                            ${temple.name}
-                        </h3>
-                        <p>
-                            ${temple.prefecture}
-                            <br>
-                            ${temple.address}
-                        </p>
-                        ${visitHtml}
-                    </div>
-                `);
+                marker.on("click", () => {
+                    openTempleDetail(temple);
+                });
                 markers.push(marker);
             });
             // ------------------------------
@@ -179,6 +197,37 @@ function loadTemples() {
             );
         });
 }
+// ========================================
+// 詳細画面のボタン処理
+// ========================================
+
+// 訪問済み・未訪問を切り替える
+document.getElementById("detail-visit-button")
+    .addEventListener("click", () => {
+
+        if (currentTempleNumber === null) {
+            return;
+        }
+
+        toggleVisited(currentTempleNumber);
+
+        const visitData = getVisitData();
+
+        updateDetailStatus(
+            visitData[currentTempleNumber]
+        );
+    });
+
+// 詳細画面を閉じる
+document.getElementById("detail-close")
+    .addEventListener("click", () => {
+
+        document.getElementById("temple-detail")
+            .classList.add("hidden");
+
+        currentTempleNumber = null;
+    });
+
 // ========================================
 // 開始
 // ========================================
