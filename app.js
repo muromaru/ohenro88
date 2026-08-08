@@ -52,6 +52,27 @@ function openTempleDetail(temple) {
     document.getElementById("detail-address").innerHTML =
         `${temple.prefecture}<br>${temple.address}`;
 
+    // 訪問日
+    const dateInput =
+        document.getElementById("visit-date");
+
+    if (visit) {
+        // すでに訪問済みなら保存されている日付
+        dateInput.value = visit.date;
+    } else {
+        // 未訪問なら今日の日付
+        const today = new Date();
+
+        const date =
+            today.getFullYear() +
+            "-" +
+            String(today.getMonth() + 1).padStart(2, "0") +
+            "-" +
+            String(today.getDate()).padStart(2, "0");
+
+        dateInput.value = date;
+    }
+
     updateDetailStatus(visit);
 
     document.getElementById("temple-detail")
@@ -93,26 +114,35 @@ function updateDetailStatus(visit) {
 // 訪問状態を変更
 // ========================================
 function toggleVisited(templeNumber) {
+
     const visitData = getVisitData();
+
     if (visitData[templeNumber]) {
-        // すでに訪問済みなら削除
+
+        // 訪問済みなら未訪問に戻す
         delete visitData[templeNumber];
+
     } else {
-        // 今日の日付を取得
-        const today = new Date();
-        const date =
-            today.getFullYear() +
-            "-" +
-            String(today.getMonth() + 1).padStart(2, "0") +
-            "-" +
-            String(today.getDate()).padStart(2, "0");
+
+        // 画面で選択された訪問日
+        const dateInput =
+            document.getElementById("visit-date");
+
+        const date = dateInput.value;
+
+        if (!date) {
+            alert("訪問日を選択してください");
+            return;
+        }
+
         visitData[templeNumber] = {
             visited: true,
             date: date
         };
     }
+
     saveVisitData(visitData);
-    // 地図を再描画
+
     loadTemples();
 }
 // ========================================
