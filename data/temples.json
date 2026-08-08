@@ -183,4 +183,132 @@
     "latitude": 33.732327,
     "longitude": 134.525024
   }
+    {
+    "number": 24,
+    "name": "最御崎寺",
+    "prefecture": "高知県",
+    "address": "室戸市室戸岬町4058-1",
+    "latitude": 33.249058,
+    "longitude": 134.176132
+  },
+  {
+    "number": 25,
+    "name": "津照寺",
+    "prefecture": "高知県",
+    "address": "室戸市室津2644",
+    "latitude": 33.287994,
+    "longitude": 134.148331
+  },
+  {
+    "number": 26,
+    "name": "金剛頂寺",
+    "prefecture": "高知県",
+    "address": "室戸市元乙523",
+    "latitude": 33.306858,
+    "longitude": 134.122284
+  },
+  {
+    "number": 27,
+    "name": "神峯寺",
+    "prefecture": "高知県",
+    "address": "安芸郡安田町唐浜2594",
+    "latitude": 33.467178,
+    "longitude": 133.974544
+  },
+  {
+    "number": 28,
+    "name": "大日寺",
+    "prefecture": "高知県",
+    "address": "香南市野市町母代寺476",
+    "latitude": 33.577675,
+    "longitude": 133.707047
+  },
+  {
+    "number": 29,
+    "name": "国分寺",
+    "prefecture": "高知県",
+    "address": "南国市国分546",
+    "latitude": 33.598861,
+    "longitude": 133.639917
+  },
+  {
+    "number": 30,
+    "name": "善楽寺",
+    "prefecture": "高知県",
+    "address": "高知市一宮しなね2-23-11",
+    "latitude": 33.591917,
+    "longitude": 133.577556
+  },
+  {
+    "number": 31,
+    "name": "竹林寺",
+    "prefecture": "高知県",
+    "address": "高知市五台山3577",
+    "latitude": 33.5464,
+    "longitude": 133.5700
+  },
+  {
+    "number": 32,
+    "name": "禅師峰寺",
+    "prefecture": "高知県",
+    "address": "南国市十市3084",
+    "latitude": 33.526848,
+    "longitude": 133.611567
+  },
+  {
+    "number": 33,
+    "name": "雪蹊寺",
+    "prefecture": "高知県",
+    "address": "高知市長浜857-3",
+    "latitude": 33.500830,
+    "longitude": 133.543100
+  },
+  {
+    "number": 34,
+    "name": "種間寺",
+    "prefecture": "高知県",
+    "address": "高知市春野町秋山72",
+    "latitude": 33.491722,
+    "longitude": 133.487583
+  },
+  {
+    "number": 35,
+    "name": "清瀧寺",
+    "prefecture": "高知県",
+    "address": "土佐市高岡町丁568-1",
+    "latitude": 33.512535,
+    "longitude": 133.409470
+  },
+  {
+    "number": 36,
+    "name": "青龍寺",
+    "prefecture": "高知県",
+    "address": "土佐市宇佐町竜163",
+    "latitude": 33.426000,
+    "longitude": 133.452100
+  },
+  {
+    "number": 37,
+    "name": "岩本寺",
+    "prefecture": "高知県",
+    "address": "高岡郡四万十町茂串3-13",
+    "latitude": 33.207966,
+    "longitude": 133.134630
+  },
+  {
+    "number": 38,
+    "name": "金剛福寺",
+    "prefecture": "高知県",
+    "address": "土佐清水市足摺岬214-1",
+    "latitude": 32.725730,
+    "longitude": 133.018420
+  },
+  {
+    "number": 39,
+    "name": "延光寺",
+    "prefecture": "高知県",
+    "address": "宿毛市平田町中山390",
+    "latitude": 32.961306,
+    "longitude": 132.774056
+  }
 ]
