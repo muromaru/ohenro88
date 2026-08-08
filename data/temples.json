@@ -4,39 +4,183 @@
     "name": "霊山寺",
     "prefecture": "徳島県",
     "address": "鳴門市大麻町板東字塚鼻126",
-    "latitude": 34.1547,
-    "longitude": 134.4654
+    "latitude": 34.159444,
+    "longitude": 134.503000
   },
   {
     "number": 2,
     "name": "極楽寺",
     "prefecture": "徳島県",
-    "address": "鳴門市大麻町檜字段の上12",
-    "latitude": 34.1559,
-    "longitude": 134.4685
+    "address": "鳴門市大麻町桧字段の上12",
+    "latitude": 34.155566,
+    "longitude": 134.490509
   },
   {
     "number": 3,
     "name": "金泉寺",
     "prefecture": "徳島県",
     "address": "板野郡板野町大寺字亀山下66",
-    "latitude": 34.1455,
-    "longitude": 134.4590
+    "latitude": 34.147404,
+    "longitude": 134.468002
   },
   {
     "number": 4,
     "name": "大日寺",
     "prefecture": "徳島県",
-    "address": "板野郡板野町黒谷字居内5",
-    "latitude": 34.1300,
-    "longitude": 134.4230
+    "address": "板野郡板野町黒谷字居内28",
+    "latitude": 34.151305,
+    "longitude": 134.430817
   },
   {
     "number": 5,
     "name": "地蔵寺",
     "prefecture": "徳島県",
     "address": "板野郡板野町羅漢字林東5",
-    "latitude": 34.1150,
-    "longitude": 134.4180
+    "latitude": 34.116000,
+    "longitude": 134.419000
+  },
+  {
+    "number": 6,
+    "name": "安楽寺",
+    "prefecture": "徳島県",
+    "address": "板野郡上板町引野字寺ノ西北8",
+    "latitude": 34.118229,
+    "longitude": 134.388504
+  },
+  {
+    "number": 7,
+    "name": "十楽寺",
+    "prefecture": "徳島県",
+    "address": "阿波市土成町高尾字法教田58",
+    "latitude": 34.120514,
+    "longitude": 134.378082
+  },
+  {
+    "number": 8,
+    "name": "熊谷寺",
+    "prefecture": "徳島県",
+    "address": "阿波市土成町土成字前田185",
+    "latitude": 34.120605,
+    "longitude": 134.340088
+  },
+  {
+    "number": 9,
+    "name": "法輪寺",
+    "prefecture": "徳島県",
+    "address": "阿波市土成町土成字田中198-2",
+    "latitude": 34.104212,
+    "longitude": 134.333820
+  },
+  {
+    "number": 10,
+    "name": "切幡寺",
+    "prefecture": "徳島県",
+    "address": "阿波市市場町切幡字観音129",
+    "latitude": 34.107677,
+    "longitude": 134.304184
+  },
+  {
+    "number": 11,
+    "name": "藤井寺",
+    "prefecture": "徳島県",
+    "address": "吉野川市鴨島町飯尾1525",
+    "latitude": 34.049606,
+    "longitude": 134.347931
+  },
+  {
+    "number": 12,
+    "name": "焼山寺",
+    "prefecture": "徳島県",
+    "address": "名西郡神山町下分字地中318",
+    "latitude": 33.984980,
+    "longitude": 134.315376
+  },
+  {
+    "number": 13,
+    "name": "大日寺",
+    "prefecture": "徳島県",
+    "address": "徳島市一宮町西丁263",
+    "latitude": 34.038113,
+    "longitude": 134.462418
+  },
+  {
+    "number": 14,
+    "name": "常楽寺",
+    "prefecture": "徳島県",
+    "address": "徳島市国府町延命606",
+    "latitude": 34.050537,
+    "longitude": 134.475708
+  },
+  {
+    "number": 15,
+    "name": "国分寺",
+    "prefecture": "徳島県",
+    "address": "徳島市国府町矢野718-1",
+    "latitude": 34.055702,
+    "longitude": 134.473801
+  },
+  {
+    "number": 16,
+    "name": "観音寺",
+    "prefecture": "徳島県",
+    "address": "徳島市国府町観音寺49-2",
+    "latitude": 34.068710,
+    "longitude": 134.474411
+  },
+  {
+    "number": 17,
+    "name": "井戸寺",
+    "prefecture": "徳島県",
+    "address": "徳島市国府町井戸字北屋敷80-1",
+    "latitude": 34.084995,
+    "longitude": 134.485046
+  },
+  {
+    "number": 18,
+    "name": "恩山寺",
+    "prefecture": "徳島県",
+    "address": "小松島市田野町字恩山寺谷40",
+    "latitude": 33.984217,
+    "longitude": 134.592282
+  },
+  {
+    "number": 19,
+    "name": "立江寺",
+    "prefecture": "徳島県",
+    "address": "小松島市立江町字若松13",
+    "latitude": 33.967785,
+    "longitude": 134.606003
+  },
+  {
+    "number": 20,
+    "name": "鶴林寺",
+    "prefecture": "徳島県",
+    "address": "勝浦郡勝浦町生名字鷲ヶ尾14",
+    "latitude": 33.914134,
+    "longitude": 134.505232
+  },
+  {
+    "number": 21,
+    "name": "太龍寺",
+    "prefecture": "徳島県",
+    "address": "阿南市加茂町龍山2",
+    "latitude": 33.882509,
+    "longitude": 134.521736
+  },
+  {
+    "number": 22,
+    "name": "平等寺",
+    "prefecture": "徳島県",
+    "address": "阿南市新野町秋山177",
+    "latitude": 33.851965,
+    "longitude": 134.582688
+  },
+  {
+    "number": 23,
+    "name": "薬王寺",
+    "prefecture": "徳島県",
+    "address": "海部郡美波町奥河内字寺前285-1",
+    "latitude": 33.732327,
+    "longitude": 134.525024
   }
 ]
