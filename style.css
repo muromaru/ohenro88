@@ -175,3 +175,59 @@ h1 {
 
     background: white;
 }
+
+/* ========================================
+   写真
+   ======================================== */
+
+.photo-area {
+    margin: 20px 0;
+}
+
+.photo-area h3 {
+    margin: 0 0 10px 0;
+    font-size: 17px;
+}
+
+/* 写真追加ボタン */
+#photo-add-button {
+    width: 100%;
+
+    padding: 12px;
+
+    margin-top: 10px;
+
+    border: 1px solid #ccc;
+
+    border-radius: 10px;
+
+    background: white;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+/* 写真 */
+.temple-photo {
+    width: 100%;
+
+    max-height: 300px;
+
+    object-fit: contain;
+
+    border-radius: 10px;
+
+    display: block;
+}
+
+/* アップロード状態 */
+#photo-status {
+    margin: 8px 0;
+
+    font-size: 14px;
+
+    color: #666;
+}
