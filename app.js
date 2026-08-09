@@ -43,10 +43,21 @@ const db = getFirestore(firebaseApp);
 // ========================================
 // 四国八十八ヶ所マップ
 // ========================================
-// 四国の中心付近
+// ========================================
+// 四国エリアに地図を固定
+// ========================================
 const shikoku = [33.75, 133.5];
-// 地図を作成
-const map = L.map("map").setView(shikoku, 8);
+// 四国の表示範囲
+const shikokuBounds = L.latLngBounds(
+    [32.7, 132.0],  // 南西
+    [34.5, 134.8]   // 北東
+);
+const map = L.map("map", {
+    minZoom: 8,
+    maxZoom: 18,
+    maxBounds: shikokuBounds,
+    maxBoundsViscosity: 1.0
+}).fitBounds(shikokuBounds);
 // OpenStreetMap
 L.tileLayer(
     "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
