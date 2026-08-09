@@ -340,6 +340,14 @@ async function loadTemplePhotos(templeNumber) {
             img.src = downloadURL;
             img.className =
                 "temple-photo";
+            img.addEventListener("click", () => {
+                const viewer =
+                    document.getElementById("photo-viewer");
+                const viewerImage =
+                    document.getElementById("photo-viewer-image");
+                viewerImage.src = downloadURL;
+                viewer.classList.remove("hidden");
+            });
             // ------------------------------
             // 削除ボタン
             // ------------------------------
