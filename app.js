@@ -80,6 +80,8 @@ function saveVisitData(data) {
 // ========================================
 
 let currentTempleNumber = null;
+let templeSearchText = "";
+let templeFilter = "all";
 
 async function openTempleDetail(temple) {
 
