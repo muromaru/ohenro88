@@ -376,7 +376,8 @@ async function loadTemples() {
             map.fitBounds(
                 group.getBounds(),
                 {
-                    padding: [30, 30]
+                    padding: [30, 30],
+                    maxZoom: 9
                 }
             );
         }
