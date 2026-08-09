@@ -155,7 +155,7 @@ function updateDetailStatus(visit) {
 // ========================================
 // 訪問状態を変更
 // ========================================
-function toggleVisited(templeNumber) {
+async function toggleVisited(templeNumber) {
 
     const visitData = getVisitData();
 
@@ -276,7 +276,7 @@ function loadTemples() {
 
 // 訪問済み・未訪問を切り替える
 document.getElementById("detail-visit-button")
-    .addEventListener("click", () => {
+    .addEventListener("click", async () => {
 
         if (currentTempleNumber === null) {
             return;
@@ -605,30 +605,3 @@ document.getElementById("memo-save-button")
 // 開始
 // ========================================
 loadTemples();
-
-async function testFirestore() {
-
-    try {
-
-        const testRef =
-            doc(db, "test", "connection");
-
-        await setDoc(testRef, {
-            message: "Firestore接続成功",
-            date: new Date().toISOString()
-        });
-
-        alert("Firestoreへの保存に成功しました");
-
-    } catch (error) {
-
-        console.error(error);
-
-        alert(
-            "Firestoreへの保存に失敗しました\n" +
-            error.message
-        );
-    }
-}
-
-testFirestore();
