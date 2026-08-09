@@ -285,3 +285,40 @@ h1 {
     font-size: 16px;
     margin-top: 2px;
 }
+
+#temple-list {
+    padding: 15px;
+    background: #f5f5f5;
+}
+
+#temple-list h2 {
+    margin-top: 0;
+}
+
+.temple-list-item {
+    background: white;
+    padding: 12px;
+    margin-bottom: 8px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.temple-list-item:active {
+    opacity: 0.7;
+}
+
+.temple-list-number {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.temple-list-name {
+    font-size: 18px;
+    margin-top: 3px;
+}
+
+.temple-list-date {
+    font-size: 14px;
+    margin-top: 3px;
+    color: #666;
+}
