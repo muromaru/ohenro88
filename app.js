@@ -833,77 +833,174 @@ function updateTempleList(
 
     container.innerHTML = "";
 
-    temples.forEach(temple => {
+    // ------------------------------
+    // 検索・フィルター
+    // ------------------------------
 
-        const visit =
-            visitData[temple.number];
+    const filteredTemples =
+        temples.filter(temple => {
 
-        const visited =
-            visit &&
-            visit.visited === true;
+            const visit =
+                visitData[temple.number];
 
-        // ------------------------------
-        // 1件分
-        // ------------------------------
+            const visited =
+                visit &&
+                visit.visited === true;
 
-        const item =
-            document.createElement("div");
+            // --------------------------
+            // 訪問状態
+            // --------------------------
 
-        item.className =
-            visited
-                ? "temple-list-item visited"
-                : "temple-list-item";
-
-        // ------------------------------
-        // 状態
-        // ------------------------------
-
-        const status =
-            visited ? "🟢" : "🔴";
-
-        // ------------------------------
-        // 日付
-        // ------------------------------
-
-        const dateText =
-            visited && visit.date
-                ? formatDate(visit.date)
-                : "未訪問";
-
-        item.innerHTML = `
-
-            <div class="temple-list-number">
-                ${status} 第${temple.number}番
-            </div>
-
-            <div class="temple-list-name">
-                ${temple.name}
-            </div>
-
-            <div class="temple-list-date">
-                ${dateText}
-            </div>
-
-        `;
-
-        // ------------------------------
-        // タップ
-        // ------------------------------
-
-        item.addEventListener(
-            "click",
-            () => {
-
-                openTempleDetail(temple);
-
+            if (
+                templeFilter === "visited" &&
+                !visited
+            ) {
+                return false;
             }
-        );
 
-        container.appendChild(item);
+            if (
+                templeFilter === "unvisited" &&
+                visited
+            ) {
+                return false;
+            }
 
-    });
+            // --------------------------
+            // 検索
+            // --------------------------
+
+            if (templeSearchText) {
+
+                const search =
+                    templeSearchText
+                        .toLowerCase();
+
+                const number =
+                    String(temple.number);
+
+                const name =
+                    temple.name.toLowerCase();
+
+                if (
+                    !number.includes(search) &&
+                    !name.includes(search)
+                ) {
+                    return false;
+                }
+            }
+
+            return true;
+
+        });
+
+    // ------------------------------
+    // 該当なし
+    // ------------------------------
+
+    if (filteredTemples.length === 0) {
+
+        container.innerHTML =
+            `<div class="no-results">
+                該当する札所がありません
+            </div>`;
+
+        return;
+    }
+
+    // ------------------------------
+    // 一覧作成
+    // ------------------------------
+
+    filteredTemples.forEach(
+        temple => {
+
+            const visit =
+                visitData[temple.number];
+
+            const visited =
+                visit &&
+                visit.visited === true;
+
+            const status =
+                visited ? "🟢" : "🔴";
+
+            const dateText =
+                visited && visit.date
+                    ? formatDate(visit.date)
+                    : "未訪問";
+
+            const item =
+                document.createElement("div");
+
+            item.className =
+                "temple-list-item";
+
+            item.innerHTML = `
+
+                <div class="temple-list-number">
+                    ${status} 第${temple.number}番
+                </div>
+
+                <div class="temple-list-name">
+                    ${temple.name}
+                </div>
+
+                <div class="temple-list-date">
+                    ${dateText}
+                </div>
+
+            `;
+
+            item.addEventListener(
+                "click",
+                () => {
+
+                    openTempleDetail(temple);
+
+                }
+            );
+
+            container.appendChild(item);
+
+        }
+    );
 }
-    
+
+function setTempleFilter(filter) {
+
+    templeFilter = filter;
+
+    document
+        .querySelectorAll(".filter-button")
+        .forEach(button => {
+
+            button.classList.remove("active");
+
+        });
+
+    if (filter === "all") {
+
+        document
+            .getElementById("filter-all")
+            .classList.add("active");
+
+    } else if (filter === "visited") {
+
+        document
+            .getElementById("filter-visited")
+            .classList.add("active");
+
+    } else if (filter === "unvisited") {
+
+        document
+            .getElementById("filter-unvisited")
+            .classList.add("active");
+
+    }
+
+    loadTemples();
+}
+
 document.getElementById("photo-viewer")
     .addEventListener("click", () => {
 
@@ -952,6 +1049,38 @@ document.getElementById("memo-save-button")
                 "メモを保存しました";
 
     });
+    
+document.getElementById("temple-search")
+    .addEventListener(
+        "input",
+        (event) => {
+
+            templeSearchText =
+                event.target.value.trim();
+
+            loadTemples();
+
+        }
+    );
+
+document.getElementById("filter-all")
+    .addEventListener(
+        "click",
+        () => setTempleFilter("all")
+    );
+
+document.getElementById("filter-unvisited")
+    .addEventListener(
+        "click",
+        () => setTempleFilter("unvisited")
+    );
+
+document.getElementById("filter-visited")
+    .addEventListener(
+        "click",
+        () => setTempleFilter("visited")
+    );
+
 // ========================================
 // 開始
 // ========================================
