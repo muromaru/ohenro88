@@ -14,7 +14,8 @@ import {
     getFirestore,
     doc,
     getDoc,
-    setDoc
+    setDoc,
+    deleteDoc
 } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
 
 // ========================================
@@ -184,6 +185,15 @@ async function toggleVisited(templeNumber) {
     }
 
     saveVisitData(visitData);
+    
+    // Firestoreにも保存
+
+    await saveVisitToFirestore(
+        templeNumber,
+        visitData[templeNumber] || {
+            visited: false
+        }
+    );
 
     loadTemples();
 }
@@ -282,7 +292,7 @@ document.getElementById("detail-visit-button")
             return;
         }
 
-        toggleVisited(currentTempleNumber);
+        await toggleVisited(currentTempleNumber);
 
         const visitData = getVisitData();
 
