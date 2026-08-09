@@ -25,7 +25,7 @@ h1 {
    地図
    ======================================== */
 #map {
-    height: calc(100vh - 60px);
+    height: calc(100vh - 60px - 70px);
     width: 100%;
 }
 /* ========================================
@@ -102,6 +102,244 @@ h1 {
     margin: 0;
     font-size: 20px;
 }
+/* ========================================
+   閉じるボタン
+   ======================================== */
+#detail-close {
+    border: none;
+    background: none;
+    font-size: 28px;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+}
+/* ========================================
+   詳細内容
+   ======================================== */
+.detail-content {
+    padding: 20px;
+}
+#detail-address {
+    line-height: 1.6;
+    color: #555;
+}
+/* ========================================
+   訪問状態
+   ======================================== */
+#detail-status {
+    margin: 20px 0;
+    font-size: 16px;
+}
+/* ========================================
+   訪問ボタン
+   ======================================== */
+#detail-visit-button {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    background: #4caf50;
+    color: white;
+    cursor: pointer;
+}
+
+/* ========================================
+   訪問日
+   ======================================== */
+
+.visit-date-area {
+    margin: 20px 0;
+}
+
+.visit-date-area label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    font-weight: bold;
+}
+
+#visit-date {
+    width: 100%;
+
+    padding: 12px;
+
+    box-sizing: border-box;
+
+    border: 1px solid #ccc;
+
+    border-radius: 8px;
+
+    font-size: 16px;
+
+    background: white;
+}
+
+/* ========================================
+   写真
+   ======================================== */
+
+.photo-area {
+    margin: 20px 0;
+}
+
+.photo-area h3 {
+    margin: 0 0 10px 0;
+    font-size: 17px;
+}
+
+/* 写真追加ボタン */
+#photo-add-button {
+    width: 100%;
+
+    padding: 12px;
+
+    margin-top: 10px;
+
+    border: 1px solid #ccc;
+
+    border-radius: 10px;
+
+    background: white;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+/* ========================================
+   写真ギャラリー
+======================================== */
+
+#temple-photos {
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 10px;
+
+    margin-top: 10px;
+}
+
+/* 写真を囲むdiv */
+.photo-wrapper {
+    position: relative;
+}
+
+/* 写真 */
+.temple-photo {
+    width: 100%;
+    height: 160px;
+    object-fit: contain;
+    border-radius: 10px;
+    display: block;
+    cursor: pointer;
+    background: #f0f0f0;
+}
+
+/* 写真削除ボタン */
+.photo-delete-button {
+    position: absolute;
+
+    right: 5px;
+    bottom: 5px;
+
+    padding: 5px 8px;
+
+    border: none;
+
+    border-radius: 6px;
+
+    background: rgba(0, 0, 0, 0.7);
+
+    color: white;
+
+    font-size: 12px;
+
+    cursor: pointer;
+}
+
+/* アップロード状態 */
+#photo-status {
+    margin: 8px 0;
+
+    font-size: 14px;
+
+    color: #666;
+}
+
+/* ========================================
+   写真拡大ビューア
+======================================== */
+
+#photo-viewer {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background: rgba(0, 0, 0, 0.9);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    z-index: 10000;
+}
+
+#photo-viewer.hidden {
+    display: none;
+}
+
+#photo-viewer-image {
+    max-width: 95%;
+    max-height: 95%;
+
+    object-fit: contain;
+}
+
+#progress-area {
+    background: white;
+    padding: 12px;
+    text-align: center;
+}
+
+#progress-title {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+#progress-count {
+    font-size: 28px;
+    font-weight: bold;
+    margin-top: 4px;
+}
+
+#progress-percent {
+    font-size: 16px;
+    margin-top: 2px;
+}
+
+.temple-marker div {
+    width: 32px;
+    height: 32px;
+    background: white;
+    border: 3px solid #333;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: bold;
+    box-sizing: border-box;
+}
+
 /* ========================================
    閉じるボタン
    ======================================== */
@@ -458,4 +696,173 @@ h1 {
 #detail-close {
     user-select: none;
     -webkit-user-select: none;
+}
+
+#temple-list h2 {
+    margin-top: 0;
+}
+
+.temple-list-item {
+    background: white;
+    padding: 12px;
+    margin-bottom: 8px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.temple-list-item:active {
+    opacity: 0.7;
+}
+
+.temple-list-number {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.temple-list-name {
+    font-size: 18px;
+    margin-top: 3px;
+}
+
+.temple-list-date {
+    font-size: 14px;
+    margin-top: 3px;
+    color: #666;
+}
+
+#temple-search {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+#temple-filter {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 12px;
+}
+
+.filter-button {
+    flex: 1;
+    padding: 10px 5px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background: white;
+    font-size: 14px;
+}
+
+.filter-button.active {
+    font-weight: bold;
+}
+
+.no-results {
+    text-align: center;
+    padding: 20px;
+    color: #777;
+}
+
+/* ========================================
+   iPhone風ボトムシート
+   ======================================== */
+
+#temple-detail {
+    border-radius: 20px 20px 0 0;
+
+    /* iPhoneの安全領域を考慮 */
+    padding-bottom: env(safe-area-inset-bottom);
+
+    /* 少し浮いているような影 */
+    box-shadow:
+        0 -4px 20px rgba(0, 0, 0, 0.18);
+}
+
+/* ----------------------------------------
+   上部のつまみ
+   ---------------------------------------- */
+
+.detail-handle {
+    width: 100%;
+
+    height: 24px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    flex-shrink: 0;
+}
+
+.detail-handle div {
+    width: 40px;
+
+    height: 5px;
+
+    background: #c7c7c7;
+
+    border-radius: 999px;
+}
+
+/* ----------------------------------------
+   ヘッダー
+   ---------------------------------------- */
+
+.detail-header {
+    padding-top: 4px;
+}
+
+/* ----------------------------------------
+   iPhoneでタップしたときの選択防止
+   ---------------------------------------- */
+
+.detail-handle,
+.detail-header,
+#detail-close {
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+/* ========================================
+   札所一覧のつまみ
+   ======================================== */
+
+.list-handle {
+    height: 22px;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+}
+
+.list-handle div {
+    width: 40px;
+    height: 5px;
+
+    background: #c7c7c7;
+
+    border-radius: 999px;
+}
+
+/* ========================================
+   札所一覧ヘッダー
+   ======================================== */
+
+.list-header {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+}
+
+.list-header h2 {
+    margin: 5px 0 10px;
+
+    font-size: 20px;
 }
