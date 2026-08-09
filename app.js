@@ -81,7 +81,7 @@ function openTempleDetail(temple) {
         `${temple.prefecture}<br>${temple.address}`;
 
     // 写真を読み込む
-    loadTemplePhotos(temple.number);
+    //loadTemplePhotos(temple.number);
 
     // 訪問日
     const dateInput =
@@ -297,6 +297,8 @@ document.getElementById("detail-close")
 
 document.getElementById("photo-add-button")
     .addEventListener("click", () => {
+
+        console.log("写真追加ボタンが押されました");
 
         document.getElementById("photo-input").click();
 
