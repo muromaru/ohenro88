@@ -427,6 +427,43 @@ async function loadTemplePhotos(templeNumber) {
     }
 }
 
+async function saveVisitToFirestore(
+    templeNumber,
+    visitData
+) {
+
+    try {
+
+        const visitRef = doc(
+            db,
+            "visits",
+            String(templeNumber).padStart(3, "0")
+        );
+
+        await setDoc(
+            visitRef,
+            visitData
+        );
+
+        console.log(
+            "Firestore保存成功:",
+            templeNumber
+        );
+
+    } catch (error) {
+
+        console.error(
+            "Firestore保存失敗:",
+            error
+        );
+
+        alert(
+            "Firestoreへの保存に失敗しました\n" +
+            error.message
+        );
+    }
+}
+
 // ========================================
 // 写真アップロード
 // ========================================
@@ -521,6 +558,47 @@ document.getElementById("photo-viewer")
 
         document.getElementById("photo-viewer")
             .classList.add("hidden");
+
+    });
+
+document.getElementById("memo-save-button")
+    .addEventListener("click", async () => {
+
+        if (currentTempleNumber === null) {
+            return;
+        }
+
+        const visitData =
+            getVisitData();
+
+        const memo =
+            document.getElementById("visit-memo")
+                .value;
+
+        if (!visitData[currentTempleNumber]) {
+
+            alert(
+                "先に訪問済みにしてください"
+            );
+
+            return;
+        }
+
+        // localStorageにも保存
+        visitData[currentTempleNumber].memo =
+            memo;
+
+        saveVisitData(visitData);
+
+        // Firestoreにも保存
+        await saveVisitToFirestore(
+            currentTempleNumber,
+            visitData[currentTempleNumber]
+        );
+
+        document.getElementById("memo-status")
+            .textContent =
+                "メモを保存しました";
 
     });
 // ========================================
