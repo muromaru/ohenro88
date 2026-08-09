@@ -78,7 +78,7 @@ h1 {
     border-radius: 20px 20px 0 0;
     box-shadow: 0 -3px 15px rgba(0, 0, 0, 0.2);
     z-index: 1000;
-    max-height: 75vh;
+    max-height: 60vh;
     overflow-y: auto;
     transition: transform 0.25s ease;
 }
