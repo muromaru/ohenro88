@@ -44,8 +44,39 @@
     <div id="map"></div>
     
     <div id="temple-list">
-
+    
         <h2>札所一覧</h2>
+    
+        <input
+            type="search"
+            id="temple-search"
+            placeholder="札所番号・寺名で検索"
+        >
+    
+        <div id="temple-filter">
+    
+            <button
+                id="filter-all"
+                class="filter-button active"
+            >
+                すべて
+            </button>
+    
+            <button
+                id="filter-unvisited"
+                class="filter-button"
+            >
+                未訪問
+            </button>
+    
+            <button
+                id="filter-visited"
+                class="filter-button"
+            >
+                訪問済み
+            </button>
+    
+        </div>
     
         <div id="temple-list-container"></div>
     
