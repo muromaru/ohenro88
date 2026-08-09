@@ -443,7 +443,82 @@ document.getElementById("temple-detail")
         }
 
     });
-    
+
+// ========================================
+// 地図をタップしたら詳細画面を閉じる
+// ========================================
+map.on("click", () => {
+
+    const detail =
+        document.getElementById("temple-detail");
+
+    if (!detail.classList.contains("hidden")) {
+
+        detail.classList.add("hidden");
+
+        currentTempleNumber = null;
+    }
+
+});
+
+// ========================================
+// 詳細画面を下方向にスワイプして閉じる
+// ========================================
+
+const detailPanel =
+    document.getElementById("temple-detail");
+
+let touchStartY = 0;
+let touchStartX = 0;
+
+detailPanel.addEventListener(
+    "touchstart",
+    (event) => {
+
+        const touch = event.touches[0];
+
+        touchStartY = touch.clientY;
+        touchStartX = touch.clientX;
+
+    },
+    { passive: true }
+);
+
+detailPanel.addEventListener(
+    "touchend",
+    (event) => {
+
+        const touch = event.changedTouches[0];
+
+        const deltaY =
+            touch.clientY - touchStartY;
+
+        const deltaX =
+            touch.clientX - touchStartX;
+
+        // 横方向のスワイプは無視
+        if (Math.abs(deltaX) > Math.abs(deltaY)) {
+            return;
+        }
+
+        // 上方向へのスクロールは何もしない
+        if (deltaY <= 80) {
+            return;
+        }
+
+        // 詳細画面が一番上にいるときだけ閉じる
+        if (detailPanel.scrollTop === 0) {
+
+            detailPanel.classList.add("hidden");
+
+            currentTempleNumber = null;
+
+        }
+
+    },
+    { passive: true }
+);
+
 // ========================================
 // 保存済み写真を読み込む
 // ========================================
