@@ -15,6 +15,7 @@ import {
     doc,
     getDoc,
     setDoc,
+    collection,
     deleteDoc
 } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
 
@@ -237,77 +238,117 @@ function formatDate(dateString) {
 // ========================================
 // 寺データを読み込む
 // ========================================
-function loadTemples() {
-    fetch("data/temples.json")
-        .then(response => response.json())
-        .then(temples => {
-            // 現在のマーカーを削除
-            map.eachLayer(layer => {
-                if (layer instanceof L.Marker) {
-                    map.removeLayer(layer);
-                }
-            });
-            const visitData = getVisitData();
-            const markers = [];
-            temples.forEach(temple => {
-                const visit = visitData[temple.number];
-                const visited = !!visit;
-                // ------------------------------
-                // ピンの色
-                // ------------------------------
-                const markerClass =
-                    visited
-                        ? "temple-marker visited"
-                        : "temple-marker";
-                // ------------------------------
-                // 番号付きピン
-                // ------------------------------
-                const marker = L.marker(
-                    [
-                        temple.latitude,
-                        temple.longitude
-                    ],
-                    {
-                        icon: L.divIcon({
-                            className: markerClass,
-                            html: `
-                                <div>
-                                    ${temple.number}
-                                </div>
-                            `,
-                            iconSize: [32, 32],
-                            iconAnchor: [16, 16]
-                        })
-                    }
-                ).addTo(map);
-                // ------------------------------
-                // ポップアップ
-                // ------------------------------
-                marker.on("click", () => {
-                    openTempleDetail(temple);
-                });
-                markers.push(marker);
-            });
-            // ------------------------------
-            // 88ヶ所が全部見えるようにする
-            // ------------------------------
-            if (markers.length > 0) {
-                const group =
-                    L.featureGroup(markers);
-                map.fitBounds(
-                    group.getBounds(),
-                    {
-                        padding: [30, 30]
-                    }
-                );
+async function loadTemples() {
+
+    try {
+
+        const response =
+            await fetch("data/temples.json");
+
+        const temples =
+            await response.json();
+
+        // Firestoreから訪問データを取得
+        const visitData =
+            await getAllVisitsFromFirestore();
+
+        // 現在のマーカーを削除
+        map.eachLayer(layer => {
+
+            if (layer instanceof L.Marker) {
+                map.removeLayer(layer);
             }
-        })
-        .catch(error => {
-            console.error(
-                "寺データの読み込みに失敗しました:",
-                error
-            );
+
         });
+
+        const markers = [];
+
+        temples.forEach(temple => {
+
+            const visit =
+                visitData[temple.number];
+
+            const visited =
+                !!visit && visit.visited === true;
+
+            // ------------------------------
+            // ピンの色
+            // ------------------------------
+
+            const markerClass =
+                visited
+                    ? "temple-marker visited"
+                    : "temple-marker";
+
+            // ------------------------------
+            // 番号付きピン
+            // ------------------------------
+
+            const marker = L.marker(
+                [
+                    temple.latitude,
+                    temple.longitude
+                ],
+                {
+                    icon: L.divIcon({
+                        className: markerClass,
+
+                        html: `
+                            <div>
+                                ${temple.number}
+                            </div>
+                        `,
+
+                        iconSize: [32, 32],
+
+                        iconAnchor: [16, 16]
+                    })
+                }
+            ).addTo(map);
+
+            // ------------------------------
+            // 札所をクリック
+            // ------------------------------
+
+            marker.on("click", () => {
+
+                openTempleDetail(temple);
+
+            });
+
+            markers.push(marker);
+
+        });
+
+        // ------------------------------
+        // 88ヶ所が全部見えるようにする
+        // ------------------------------
+
+        if (markers.length > 0) {
+
+            const group =
+                L.featureGroup(markers);
+
+            map.fitBounds(
+                group.getBounds(),
+                {
+                    padding: [30, 30]
+                }
+            );
+        }
+
+    } catch (error) {
+
+        console.error(
+            "寺データの読み込みに失敗しました:",
+            error
+        );
+
+        alert(
+            "寺データの読み込みに失敗しました\n" +
+            error.message
+        );
+    }
 }
 
 // ========================================
@@ -538,6 +579,46 @@ async function getVisitFromFirestore(templeNumber) {
         );
 
         return null;
+    }
+}
+
+async function getAllVisitsFromFirestore() {
+
+    try {
+
+        const visitsRef =
+            collection(db, "visits");
+
+        const snapshot =
+            await getDocs(visitsRef);
+
+        const visitData = {};
+
+        snapshot.forEach((docSnapshot) => {
+
+            const templeNumber =
+                Number(docSnapshot.id);
+
+            visitData[templeNumber] =
+                docSnapshot.data();
+
+        });
+
+        return visitData;
+
+    } catch (error) {
+
+        console.error(
+            "訪問データの取得に失敗しました:",
+            error
+        );
+
+        alert(
+            "訪問データの取得に失敗しました\n" +
+            error.message
+        );
+
+        return {};
     }
 }
 
