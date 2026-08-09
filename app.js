@@ -5,7 +5,8 @@ import {
     getStorage,
     ref,
     uploadBytes,
-    getDownloadURL
+    getDownloadURL,
+    listAll
 } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-storage.js";
 
 
@@ -25,7 +26,6 @@ const firebaseConfig = {
 const firebaseApp = initializeApp(firebaseConfig);
 
 const storage = getStorage(firebaseApp);
-console.log("Firebase Storage 初期化成功");
 
 // ========================================
 // 四国八十八ヶ所マップ
@@ -82,7 +82,7 @@ function openTempleDetail(temple) {
         `${temple.prefecture}<br>${temple.address}`;
 
     // 写真を読み込む
-    //loadTemplePhotos(temple.number);
+    loadTemplePhotos(temple.number);
 
     // 訪問日
     const dateInput =
@@ -293,13 +293,80 @@ document.getElementById("detail-close")
     });
 
 // ========================================
+// 保存済み写真を読み込む
+// ========================================
+
+async function loadTemplePhotos(templeNumber) {
+
+    const photoContainer =
+        document.getElementById("temple-photos");
+
+    const status =
+        document.getElementById("photo-status");
+
+    // 一旦、現在表示されている写真を消す
+    photoContainer.innerHTML = "";
+
+    status.textContent = "写真を読み込み中...";
+
+    try {
+
+        // 寺ごとのフォルダ
+        const folderRef = ref(
+            storage,
+            `photos/${String(templeNumber).padStart(3, "0")}`
+        );
+
+        // フォルダ内のファイル一覧を取得
+        const result = await listAll(folderRef);
+
+        // 写真がない場合
+        if (result.items.length === 0) {
+
+            status.textContent =
+                "まだ写真はありません";
+
+            return;
+        }
+
+        // 写真を1枚ずつ取得
+        for (const itemRef of result.items) {
+
+            const downloadURL =
+                await getDownloadURL(itemRef);
+
+            const img =
+                document.createElement("img");
+
+            img.src = downloadURL;
+
+            img.className = "temple-photo";
+
+            photoContainer.appendChild(img);
+        }
+
+        status.textContent =
+            `${result.items.length}枚の写真`;
+
+    } catch (error) {
+
+        console.error(
+            "写真の読み込みに失敗しました:",
+            error
+        );
+
+        status.textContent =
+            "写真の読み込みに失敗しました";
+    }
+}
+
+// ========================================
 // 写真アップロード
 // ========================================
 
 document.getElementById("photo-add-button")
     .addEventListener("click", () => {
 
-        console.log("写真追加ボタンが押されました");
         alert("ボタンは動いています");
 
         document.getElementById("photo-input").click();
@@ -386,5 +453,4 @@ document.getElementById("photo-input")
 // ========================================
 // 開始
 // ========================================
-console.log("app.js 最後まで実行されました");
 loadTemples();
