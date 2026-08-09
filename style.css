@@ -322,3 +322,38 @@ h1 {
     margin-top: 3px;
     color: #666;
 }
+
+#temple-search {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+#temple-filter {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 12px;
+}
+
+.filter-button {
+    flex: 1;
+    padding: 10px 5px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background: white;
+    font-size: 14px;
+}
+
+.filter-button.active {
+    font-weight: bold;
+}
+
+.no-results {
+    text-align: center;
+    padding: 20px;
+    color: #777;
+}
