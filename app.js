@@ -78,12 +78,28 @@ function saveVisitData(data) {
 
 let currentTempleNumber = null;
 
-function openTempleDetail(temple) {
+async function openTempleDetail(temple) {
 
     currentTempleNumber = temple.number;
 
     const visitData = getVisitData();
-    const visit = visitData[temple.number];
+
+    let visit =
+        await getVisitFromFirestore(
+            temple.number
+        );
+
+    if (visit) {
+
+        visitData[temple.number] = visit;
+
+        saveVisitData(visitData);
+
+    } else {
+
+        visit = visitData[temple.number];
+
+    }
 
     document.getElementById("detail-title").textContent =
         `第${temple.number}番 ${temple.name}`;
@@ -91,7 +107,7 @@ function openTempleDetail(temple) {
     document.getElementById("detail-address").innerHTML =
         `${temple.prefecture}<br>${temple.address}`;
 
-    // 写真を読み込む
+    // 写真
     loadTemplePhotos(temple.number);
 
     // 訪問日
@@ -114,6 +130,20 @@ function openTempleDetail(temple) {
             String(today.getDate()).padStart(2, "0");
 
         dateInput.value = date;
+    }
+
+    // メモ
+    const memoInput =
+        document.getElementById("visit-memo");
+
+    if (visit && visit.memo) {
+
+        memoInput.value = visit.memo;
+
+    } else {
+
+        memoInput.value = "";
+
     }
 
     updateDetailStatus(visit);
@@ -471,6 +501,43 @@ async function saveVisitToFirestore(
             "Firestoreへの保存に失敗しました\n" +
             error.message
         );
+    }
+}
+
+async function getVisitFromFirestore(templeNumber) {
+
+    try {
+
+        const visitRef = doc(
+            db,
+            "visits",
+            String(templeNumber).padStart(3, "0")
+        );
+
+        const snapshot =
+            await getDoc(visitRef);
+
+        if (snapshot.exists()) {
+
+            return snapshot.data();
+
+        }
+
+        return null;
+
+    } catch (error) {
+
+        console.error(
+            "Firestore読み込み失敗:",
+            error
+        );
+
+        alert(
+            "Firestoreからの読み込みに失敗しました\n" +
+            error.message
+        );
+
+        return null;
     }
 }
 
