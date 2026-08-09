@@ -263,3 +263,25 @@ h1 {
 
     object-fit: contain;
 }
+
+#progress-area {
+    background: white;
+    padding: 12px;
+    text-align: center;
+}
+
+#progress-title {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+#progress-count {
+    font-size: 28px;
+    font-weight: bold;
+    margin-top: 4px;
+}
+
+#progress-percent {
+    font-size: 16px;
+    margin-top: 2px;
+}
