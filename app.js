@@ -255,6 +255,11 @@ async function loadTemples() {
             await getAllVisitsFromFirestore();
 
         updateProgress(visitData);
+        
+        updateTempleList(
+            temples,
+            visitData
+        );
 
         // 現在のマーカーを削除
         map.eachLayer(layer => {
@@ -815,6 +820,89 @@ document.getElementById("photo-input")
         // 同じ写真をもう一度選択できるようにする
         event.target.value = "";
     });
+    
+function updateTempleList(
+    temples,
+    visitData
+) {
+
+    const container =
+        document.getElementById(
+            "temple-list-container"
+        );
+
+    container.innerHTML = "";
+
+    temples.forEach(temple => {
+
+        const visit =
+            visitData[temple.number];
+
+        const visited =
+            visit &&
+            visit.visited === true;
+
+        // ------------------------------
+        // 1件分
+        // ------------------------------
+
+        const item =
+            document.createElement("div");
+
+        item.className =
+            visited
+                ? "temple-list-item visited"
+                : "temple-list-item";
+
+        // ------------------------------
+        // 状態
+        // ------------------------------
+
+        const status =
+            visited ? "🟢" : "🔴";
+
+        // ------------------------------
+        // 日付
+        // ------------------------------
+
+        const dateText =
+            visited && visit.date
+                ? formatDate(visit.date)
+                : "未訪問";
+
+        item.innerHTML = `
+
+            <div class="temple-list-number">
+                ${status} 第${temple.number}番
+            </div>
+
+            <div class="temple-list-name">
+                ${temple.name}
+            </div>
+
+            <div class="temple-list-date">
+                ${dateText}
+            </div>
+
+        `;
+
+        // ------------------------------
+        // タップ
+        // ------------------------------
+
+        item.addEventListener(
+            "click",
+            () => {
+
+                openTempleDetail(temple);
+
+            }
+        );
+
+        container.appendChild(item);
+
+    });
+}
     
 document.getElementById("photo-viewer")
     .addEventListener("click", () => {
