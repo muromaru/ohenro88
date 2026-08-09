@@ -428,6 +428,23 @@ document.getElementById("detail-close")
     });
 
 // ========================================
+// 詳細画面の外側をタップしたら閉じる
+// ========================================
+document.getElementById("temple-detail")
+    .addEventListener("click", (event) => {
+
+        // タップされた場所が詳細画面そのものなら閉じる
+        if (event.target === event.currentTarget) {
+
+            document.getElementById("temple-detail")
+                .classList.add("hidden");
+
+            currentTempleNumber = null;
+        }
+
+    });
+    
+// ========================================
 // 保存済み写真を読み込む
 // ========================================
 
