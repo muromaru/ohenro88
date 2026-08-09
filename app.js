@@ -160,10 +160,17 @@ async function openTempleDetail(temple) {
         visit
     );
 
-    document.getElementById(
-        "temple-detail"
-    ).classList.remove(
-        "hidden"
+    const detailSheet =
+        document.getElementById("temple-detail");
+    
+    detailSheet.classList.remove(
+        "hidden",
+        "sheet-small",
+        "sheet-large"
+    );
+    
+    detailSheet.classList.add(
+        "sheet-medium"
     );
 }
 
@@ -430,14 +437,19 @@ document.getElementById("detail-visit-button")
     );
 
 // 詳細画面を閉じる
+function closeTempleDetail() {
+
+    document.getElementById("temple-detail")
+        .classList.add("hidden");
+
+    currentTempleNumber = null;
+}
+
 document.getElementById("detail-close")
-    .addEventListener("click", () => {
-
-        document.getElementById("temple-detail")
-            .classList.add("hidden");
-
-        currentTempleNumber = null;
-    });
+    .addEventListener(
+        "click",
+        closeTempleDetail
+    );
 
 // ========================================
 // 詳細画面の外側をタップしたら閉じる
@@ -473,127 +485,7 @@ map.on("click", () => {
 
 });
 
-// ========================================
-// iPhone風ボトムシート操作
-// ========================================
 
-const detailPanel =
-    document.getElementById("temple-detail");
-
-const detailHandle =
-    document.querySelector(".detail-handle");
-
-let touchStartY = 0;
-let currentTranslateY = 0;
-let isDraggingDetail = false;
-
-// ----------------------------------------
-// 指を置いた
-// ----------------------------------------
-
-detailHandle.addEventListener(
-    "touchstart",
-    (event) => {
-
-        const touch = event.touches[0];
-
-        touchStartY = touch.clientY;
-
-        currentTranslateY = 0;
-
-        isDraggingDetail = true;
-
-        detailPanel.style.transition = "none";
-
-    },
-    { passive: true }
-);
-
-// ----------------------------------------
-// 指を動かしている
-// ----------------------------------------
-
-detailHandle.addEventListener(
-    "touchmove",
-    (event) => {
-
-        if (!isDraggingDetail) {
-            return;
-        }
-
-        const touch = event.touches[0];
-
-        const deltaY =
-            touch.clientY - touchStartY;
-
-        // 上方向には動かさない
-        if (deltaY < 0) {
-            currentTranslateY = 0;
-        } else {
-            currentTranslateY = deltaY;
-        }
-
-        detailPanel.style.transform =
-            `translateY(${currentTranslateY}px)`;
-
-    },
-    { passive: true }
-);
-
-// ----------------------------------------
-// 指を離した
-// ----------------------------------------
-
-detailHandle.addEventListener(
-    "touchend",
-    () => {
-
-        if (!isDraggingDetail) {
-            return;
-        }
-
-        isDraggingDetail = false;
-
-        detailPanel.style.transition =
-            "transform 0.25s ease";
-
-        // 120px以上下げたら閉じる
-        if (currentTranslateY > 120) {
-
-            detailPanel.style.transform =
-                "translateY(100%)";
-
-            setTimeout(() => {
-
-                detailPanel.classList.add("hidden");
-
-                detailPanel.style.transform = "";
-
-                detailPanel.style.transition = "";
-
-                currentTempleNumber = null;
-
-            }, 250);
-
-        } else {
-
-            // 元の位置に戻す
-            detailPanel.style.transform =
-                "translateY(0)";
-
-            setTimeout(() => {
-
-                detailPanel.style.transform = "";
-
-                detailPanel.style.transition = "";
-
-            }, 250);
-
-        }
-
-    },
-    { passive: true }
-);
 
 // ========================================
 // 保存済み写真を読み込む
@@ -1290,6 +1182,174 @@ document.getElementById("filter-visited")
         "click",
         () => setTempleFilter("visited")
     );
+
+// ========================================
+// iPhone風ボトムシート
+// 指に追従して3段階に切り替える
+// ========================================
+const detailSheet =
+    document.getElementById("temple-detail");
+let sheetTouchStartY = 0;
+let sheetStartHeight = 0;
+let isSheetDragging = false;
+// ----------------------------------------
+// シートの高さを取得
+// ----------------------------------------
+function getSheetHeight() {
+    return detailSheet.getBoundingClientRect().height;
+}
+// ----------------------------------------
+// スワイプ開始
+// ----------------------------------------
+detailSheet.addEventListener(
+    "touchstart",
+    (event) => {
+        // 詳細画面が閉じている場合は無視
+        if (
+            detailSheet.classList.contains("hidden")
+        ) {
+            return;
+        }
+        sheetTouchStartY =
+            event.touches[0].clientY;
+        sheetStartHeight =
+            getSheetHeight();
+        isSheetDragging = true;
+        // アニメーションを一旦OFF
+        detailSheet.style.transition =
+            "none";
+    },
+    { passive: true }
+);
+// ----------------------------------------
+// 指を動かす
+// ----------------------------------------
+detailSheet.addEventListener(
+    "touchmove",
+    (event) => {
+        if (!isSheetDragging) {
+            return;
+        }
+        const currentY =
+            event.touches[0].clientY;
+        const deltaY =
+            currentY - sheetTouchStartY;
+        // 画面の高さ
+        const screenHeight =
+            window.innerHeight;
+        // 現在の高さ
+        let newHeight =
+            sheetStartHeight - deltaY;
+        // 高さの範囲
+        const minHeight =
+            screenHeight * 0.18;
+        const maxHeight =
+            screenHeight * 0.85;
+        // 範囲内に制限
+        newHeight =
+            Math.max(
+                minHeight,
+                Math.min(
+                    maxHeight,
+                    newHeight
+                )
+            );
+        // 高さを直接変更
+        detailSheet.style.height =
+            `${newHeight}px`;
+    },
+    { passive: true }
+);
+// ----------------------------------------
+// 指を離す
+// ----------------------------------------
+detailSheet.addEventListener(
+    "touchend",
+    () => {
+        if (!isSheetDragging) {
+            return;
+        }
+        isSheetDragging = false;
+        // アニメーションON
+        detailSheet.style.transition =
+            "height 0.25s ease";
+        const screenHeight =
+            window.innerHeight;
+        const currentHeight =
+            getSheetHeight();
+        // --------------------------------
+        // 3段階の高さ
+        // --------------------------------
+        const smallHeight =
+            screenHeight * 0.22;
+        const mediumHeight =
+            screenHeight * 0.48;
+        const largeHeight =
+            screenHeight * 0.80;
+        // --------------------------------
+        // 一番近いサイズへ吸着
+        // --------------------------------
+        const heights = [
+            {
+                name: "small",
+                height: smallHeight
+            },
+            {
+                name: "medium",
+                height: mediumHeight
+            },
+            {
+                name: "large",
+                height: largeHeight
+            }
+        ];
+        let nearest =
+            heights[0];
+        let minDistance =
+            Math.abs(
+                currentHeight -
+                nearest.height
+            );
+        heights.forEach(
+            (item) => {
+                const distance =
+                    Math.abs(
+                        currentHeight -
+                        item.height
+                    );
+                if (
+                    distance <
+                    minDistance
+                ) {
+                    nearest =
+                        item;
+                    minDistance =
+                        distance;
+                }
+            }
+        );
+        // --------------------------------
+        // 状態を更新
+        // --------------------------------
+        detailSheet.classList.remove(
+            "sheet-small",
+            "sheet-medium",
+            "sheet-large"
+        );
+        detailSheet.classList.add(
+            `sheet-${nearest.name}`
+        );
+        // 高さを設定
+        detailSheet.style.height =
+            `${nearest.height}px`;
+        // 少し待ってstyleを解除
+        setTimeout(() => {
+            detailSheet.style.height = "";
+            detailSheet.style.transition = "";
+        }, 250);
+    },
+    { passive: true }
+);
 
 // ========================================
 // 開始
