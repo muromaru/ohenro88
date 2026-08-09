@@ -85,76 +85,94 @@ let templeFilter = "all";
 
 async function openTempleDetail(temple) {
 
-    currentTempleNumber = temple.number;
+    currentTempleNumber =
+        temple.number;
 
-    const visitData = getVisitData();
-
-    let visit =
+    // Firestoreから取得
+    const visit =
         await getVisitFromFirestore(
             temple.number
         );
 
-    if (visit) {
-
-        visitData[temple.number] = visit;
-
-        saveVisitData(visitData);
-
-    } else {
-
-        visit = visitData[temple.number];
-
-    }
-
-    document.getElementById("detail-title").textContent =
+    document.getElementById(
+        "detail-title"
+    ).textContent =
         `第${temple.number}番 ${temple.name}`;
 
-    document.getElementById("detail-address").innerHTML =
+    document.getElementById(
+        "detail-address"
+    ).innerHTML =
         `${temple.prefecture}<br>${temple.address}`;
 
     // 写真
-    loadTemplePhotos(temple.number);
+    loadTemplePhotos(
+        temple.number
+    );
 
+    // ------------------------------
     // 訪問日
+    // ------------------------------
+
     const dateInput =
-        document.getElementById("visit-date");
+        document.getElementById(
+            "visit-date"
+        );
 
-    if (visit) {
+    if (visit && visit.date) {
 
-        dateInput.value = visit.date;
+        dateInput.value =
+            visit.date;
 
     } else {
 
-        const today = new Date();
+        const today =
+            new Date();
 
         const date =
             today.getFullYear() +
             "-" +
-            String(today.getMonth() + 1).padStart(2, "0") +
+            String(
+                today.getMonth() + 1
+            ).padStart(2, "0") +
             "-" +
-            String(today.getDate()).padStart(2, "0");
+            String(
+                today.getDate()
+            ).padStart(2, "0");
 
-        dateInput.value = date;
+        dateInput.value =
+            date;
     }
 
+    // ------------------------------
     // メモ
+    // ------------------------------
+
     const memoInput =
-        document.getElementById("visit-memo");
+        document.getElementById(
+            "visit-memo"
+        );
 
     if (visit && visit.memo) {
 
-        memoInput.value = visit.memo;
+        memoInput.value =
+            visit.memo;
 
     } else {
 
-        memoInput.value = "";
+        memoInput.value =
+            "";
 
     }
 
-    updateDetailStatus(visit);
+    updateDetailStatus(
+        visit
+    );
 
-    document.getElementById("temple-detail")
-        .classList.remove("hidden");
+    document.getElementById(
+        "temple-detail"
+    ).classList.remove(
+        "hidden"
+    );
 }
 
 function updateDetailStatus(visit) {
@@ -191,46 +209,80 @@ function updateDetailStatus(visit) {
 // ========================================
 // 訪問状態を変更
 // ========================================
-async function toggleVisited(templeNumber) {
+async function toggleVisited(
+    templeNumber
+) {
 
-    const visitData = getVisitData();
+    try {
 
-    if (visitData[templeNumber]) {
+        const visitRef =
+            doc(
+                db,
+                "visits",
+                String(templeNumber)
+                    .padStart(3, "0")
+            );
 
-        // 訪問済みなら未訪問に戻す
-        delete visitData[templeNumber];
+        const snapshot =
+            await getDoc(
+                visitRef
+            );
 
-    } else {
+        // ------------------------------
+        // すでに訪問済み
+        // ------------------------------
 
-        // 画面で選択された訪問日
-        const dateInput =
-            document.getElementById("visit-date");
+        if (snapshot.exists()) {
 
-        const date = dateInput.value;
+            await deleteDoc(
+                visitRef
+            );
 
-        if (!date) {
-            alert("訪問日を選択してください");
-            return;
+            // Firestoreから削除
+            // このあと説明します
+
+        } else {
+
+            // --------------------------
+            // 未訪問 → 訪問済み
+            // --------------------------
+
+            const date =
+                document.getElementById(
+                    "visit-date"
+                ).value;
+
+            if (!date) {
+
+                alert(
+                    "訪問日を選択してください"
+                );
+
+                return;
+            }
+
+            await setDoc(
+                visitRef,
+                {
+                    visited: true,
+                    date: date,
+                    memo: ""
+                }
+            );
         }
 
-        visitData[templeNumber] = {
-            visited: true,
-            date: date
-        };
+    } catch (error) {
+
+        console.error(
+            "訪問状態の変更に失敗しました:",
+            error
+        );
+
+        alert(
+            "訪問状態の変更に失敗しました\n" +
+            error.message
+        );
     }
-
-    saveVisitData(visitData);
-    
-    // Firestoreにも保存
-
-    await saveVisitToFirestore(
-        templeNumber,
-        visitData[templeNumber] || {
-            visited: false
-        }
-    );
-
-    loadTemples();
 }
 // ========================================
 // 日付を表示用に変換
@@ -368,20 +420,32 @@ async function loadTemples() {
 
 // 訪問済み・未訪問を切り替える
 document.getElementById("detail-visit-button")
-    .addEventListener("click", async () => {
+    .addEventListener(
+        "click",
+        async () => {
 
-        if (currentTempleNumber === null) {
-            return;
+            if (
+                currentTempleNumber === null
+            ) {
+                return;
+            }
+
+            await toggleVisited(
+                currentTempleNumber
+            );
+
+            // Firestoreから最新状態を取得
+            const visit =
+                await getVisitFromFirestore(
+                    currentTempleNumber
+                );
+
+            updateDetailStatus(
+                visit
+            );
+
         }
-
-        await toggleVisited(currentTempleNumber);
-
-        const visitData = getVisitData();
-
-        updateDetailStatus(
-            visitData[currentTempleNumber]
-        );
-    });
+    );
 
 // 詳細画面を閉じる
 document.getElementById("detail-close")
