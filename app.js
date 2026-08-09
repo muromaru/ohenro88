@@ -60,9 +60,10 @@ const map = L.map("map", {
 }).fitBounds(shikokuBounds);
 // OpenStreetMap
 L.tileLayer(
-    "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+    "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png",
     {
-        attribution: '&copy; OpenStreetMap contributors'
+        attribution:
+            '&copy; OpenStreetMap contributors &copy; CARTO'
     }
 ).addTo(map);
 
