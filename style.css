@@ -80,6 +80,7 @@ h1 {
     z-index: 1000;
     max-height: 75vh;
     overflow-y: auto;
+    transition: transform 0.25s ease;
 }
 /* ========================================
    詳細画面を閉じている状態
