@@ -553,43 +553,6 @@ async function loadTemplePhotos(templeNumber) {
     }
 }
 
-async function saveVisitToFirestore(
-    templeNumber,
-    visitData
-) {
-
-    try {
-
-        const visitRef = doc(
-            db,
-            "visits",
-            String(templeNumber).padStart(3, "0")
-        );
-
-        await setDoc(
-            visitRef,
-            visitData
-        );
-
-        console.log(
-            "Firestore保存成功:",
-            templeNumber
-        );
-
-    } catch (error) {
-
-        console.error(
-            "Firestore保存失敗:",
-            error
-        );
-
-        alert(
-            "Firestoreへの保存に失敗しました\n" +
-            error.message
-        );
-    }
-}
-
 async function getVisitFromFirestore(templeNumber) {
 
     try {
