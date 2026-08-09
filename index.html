@@ -26,19 +26,71 @@
 
     <!-- 地図 -->
     <div id="map"></div>
-    
+
+    <!-- ========================================
+         札所詳細画面
+         ======================================== -->
+
     <div id="temple-detail" class="hidden">
 
+        <!-- 詳細画面ヘッダー -->
         <div class="detail-header">
+
             <h2 id="detail-title"></h2>
-            <button id="detail-close">×</button>
+
+            <button id="detail-close">
+                ×
+            </button>
+
         </div>
-    
+
+        <!-- 詳細画面の内容 -->
         <div class="detail-content">
-    
+
+            <!-- 住所 -->
             <p id="detail-address"></p>
-    
+
+
+            <!-- ========================================
+                 写真
+                 ======================================== -->
+
+            <div class="photo-area">
+
+                <h3>📷 写真</h3>
+
+                <!-- Firebaseから取得した写真を表示する場所 -->
+                <div id="temple-photos"></div>
+
+                <!-- 実際のファイル選択欄 -->
+                <input
+                    type="file"
+                    id="photo-input"
+                    accept="image/*"
+                    hidden
+                >
+
+                <!-- ユーザーが押すボタン -->
+                <button id="photo-add-button">
+                    📷 写真を追加
+                </button>
+
+                <!-- アップロード状態 -->
+                <p id="photo-status"></p>
+
+            </div>
+
+
+            <!-- ========================================
+                 訪問状態
+                 ======================================== -->
+
             <div id="detail-status"></div>
+
+
+            <!-- ========================================
+                 訪問日
+                 ======================================== -->
 
             <div class="visit-date-area">
 
@@ -53,20 +105,32 @@
 
             </div>
 
-        <button id="detail-visit-button"></button>
+
+            <!-- 訪問済みボタン -->
+            <button id="detail-visit-button"></button>
+
         </div>
-        
+
     </div>
 
-    <!-- Leaflet -->
+
+    <!-- ========================================
+         Leaflet
+         ======================================== -->
+
     <script
         src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
     </script>
-    
-    <script type="module" src="app.js"></script>
 
-    <!-- 自分のJavaScript -->
-    <script src="app.js"></script>
+
+    <!-- ========================================
+         自分のJavaScript
+         ======================================== -->
+
+    <script
+        type="module"
+        src="app.js">
+    </script>
 
 </body>
 </html>
