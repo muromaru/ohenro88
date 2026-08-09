@@ -304,6 +304,10 @@ async function loadTemplePhotos(templeNumber) {
     const status =
         document.getElementById("photo-status");
 
+        // デバッグ情報を画面に表示
+        status.textContent =
+            `読み込み中：第${templeNumber}番 / photos/${String(templeNumber).padStart(3, "0")}`;
+
     // 一旦、現在表示されている写真を消す
     photoContainer.innerHTML = "";
 
@@ -317,6 +321,10 @@ async function loadTemplePhotos(templeNumber) {
             `photos/${String(templeNumber).padStart(3, "0")}`
         );
 
+        //デバッグ情報
+        status.textContent =
+            `Firebase：photos/${String(templeNumber).padStart(3, "0")}`;
+        
         // フォルダ内のファイル一覧を取得
         const result = await listAll(folderRef);
 
