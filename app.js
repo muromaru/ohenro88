@@ -54,26 +54,6 @@ L.tileLayer(
         attribution: '&copy; OpenStreetMap contributors'
     }
 ).addTo(map);
-// ========================================
-// 訪問データ
-// ========================================
-// localStorageに保存する名前
-const STORAGE_KEY = "henro88_visits";
-// 保存されている訪問データを取得
-function getVisitData() {
-    const data = localStorage.getItem(STORAGE_KEY);
-    if (data) {
-        return JSON.parse(data);
-    }
-    return {};
-}
-// 訪問データを保存
-function saveVisitData(data) {
-    localStorage.setItem(
-        STORAGE_KEY,
-        JSON.stringify(data)
-    );
-}
 
 // ========================================
 // 札所詳細画面
@@ -707,9 +687,6 @@ function startVisitListener() {
                     docSnapshot.data();
 
             });
-
-            // localStorageにも反映
-            saveVisitData(visitData);
             
             updateProgress(visitData);
 
@@ -980,45 +957,89 @@ document.getElementById("photo-viewer")
     });
 
 document.getElementById("memo-save-button")
-    .addEventListener("click", async () => {
+    .addEventListener(
+        "click",
+        async () => {
 
-        if (currentTempleNumber === null) {
-            return;
+            if (currentTempleNumber === null) {
+                return;
+            }
+
+            const memo =
+                document.getElementById(
+                    "visit-memo"
+                ).value;
+
+            const memoStatus =
+                document.getElementById(
+                    "memo-status"
+                );
+
+            try {
+
+                // ------------------------------
+                // 現在のFirestoreデータを取得
+                // ------------------------------
+
+                const visitRef =
+                    doc(
+                        db,
+                        "visits",
+                        String(currentTempleNumber)
+                            .padStart(3, "0")
+                    );
+
+                const snapshot =
+                    await getDoc(visitRef);
+
+                if (!snapshot.exists()) {
+
+                    alert(
+                        "先に訪問済みにしてください"
+                    );
+
+                    return;
+                }
+
+                const currentData =
+                    snapshot.data();
+
+                // ------------------------------
+                // メモをFirestoreへ保存
+                // ------------------------------
+
+                await setDoc(
+                    visitRef,
+                    {
+                        visited:
+                            currentData.visited === true,
+
+                        date:
+                            currentData.date || "",
+
+                        memo:
+                            memo
+                    }
+                );
+
+                memoStatus.textContent =
+                    "メモを保存しました";
+
+            } catch (error) {
+
+                console.error(
+                    "メモの保存に失敗しました:",
+                    error
+                );
+
+                alert(
+                    "メモの保存に失敗しました\n" +
+                    error.message
+                );
+            }
+
         }
-
-        const visitData =
-            getVisitData();
-
-        const memo =
-            document.getElementById("visit-memo")
-                .value;
-
-        if (!visitData[currentTempleNumber]) {
-
-            alert(
-                "先に訪問済みにしてください"
-            );
-
-            return;
-        }
-
-        // localStorageにも保存
-        visitData[currentTempleNumber].memo =
-            memo;
-
-        saveVisitData(visitData);
-
-        // Firestoreにも保存
-        await saveVisitToFirestore(
-            currentTempleNumber,
-            visitData[currentTempleNumber]
-        );
-
-        document.getElementById("memo-status")
-            .textContent =
-                "メモを保存しました";
-
-    });
+    );
     
 document.getElementById("temple-search")
     .addEventListener(
