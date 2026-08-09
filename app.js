@@ -254,6 +254,8 @@ async function loadTemples() {
         const visitData =
             await getAllVisitsFromFirestore();
 
+        updateProgress(visitData);
+
         // 現在のマーカーを削除
         map.eachLayer(layer => {
 
@@ -647,6 +649,8 @@ function startVisitListener() {
 
             // localStorageにも反映
             saveVisitData(visitData);
+            
+            updateProgress(visitData);
 
             // 地図を更新
             loadTemples();
@@ -694,6 +698,33 @@ function startVisitListener() {
 
         }
     );
+}
+
+function updateProgress(visitData) {
+
+    let visitedCount = 0;
+
+    for (let i = 1; i <= 88; i++) {
+
+        const visit = visitData[i];
+
+        if (visit && visit.visited === true) {
+            visitedCount++;
+        }
+    }
+
+    const percent =
+        (visitedCount / 88) * 100;
+
+    document.getElementById(
+        "progress-count"
+    ).textContent =
+        `${visitedCount} / 88`;
+
+    document.getElementById(
+        "progress-percent"
+    ).textContent =
+        `${percent.toFixed(1)}%`;
 }
 
 // ========================================
