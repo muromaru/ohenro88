@@ -25,6 +25,7 @@ const firebaseConfig = {
 const firebaseApp = initializeApp(firebaseConfig);
 
 const storage = getStorage(firebaseApp);
+console.log("Firebase Storage 初期化成功");
 
 // ========================================
 // 四国八十八ヶ所マップ
@@ -299,6 +300,7 @@ document.getElementById("photo-add-button")
     .addEventListener("click", () => {
 
         console.log("写真追加ボタンが押されました");
+        alert("ボタンは動いています");
 
         document.getElementById("photo-input").click();
 
@@ -384,4 +386,5 @@ document.getElementById("photo-input")
 // ========================================
 // 開始
 // ========================================
+console.log("app.js 最後まで実行されました");
 loadTemples();
