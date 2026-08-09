@@ -10,6 +10,12 @@ import {
     deleteObject
 } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-storage.js";
 
+import {
+    getFirestore,
+    doc,
+    getDoc,
+    setDoc
+} from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
 
 // ========================================
 // Firebase
@@ -27,6 +33,8 @@ const firebaseConfig = {
 const firebaseApp = initializeApp(firebaseConfig);
 
 const storage = getStorage(firebaseApp);
+
+const db = getFirestore(firebaseApp);
 
 // ========================================
 // 四国八十八ヶ所マップ
@@ -519,3 +527,30 @@ document.getElementById("photo-viewer")
 // 開始
 // ========================================
 loadTemples();
+
+async function testFirestore() {
+
+    try {
+
+        const testRef =
+            doc(db, "test", "connection");
+
+        await setDoc(testRef, {
+            message: "Firestore接続成功",
+            date: new Date().toISOString()
+        });
+
+        alert("Firestoreへの保存に成功しました");
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert(
+            "Firestoreへの保存に失敗しました\n" +
+            error.message
+        );
+    }
+}
+
+testFirestore();
