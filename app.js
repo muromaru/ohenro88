@@ -62,6 +62,7 @@ L.tileLayer(
 let currentTempleNumber = null;
 let templeSearchText = "";
 let templeFilter = "all";
+let currentVisitData = {};
 
 async function openTempleDetail(temple) {
 
@@ -275,8 +276,7 @@ async function loadTemples() {
             await response.json();
 
         // Firestoreから訪問データを取得
-        const visitData =
-            await getAllVisitsFromFirestore();
+        const visitData = currentVisitData;
 
         updateProgress(visitData);
         
@@ -650,9 +650,12 @@ function startVisitListener() {
                     docSnapshot.data();
 
             });
-            
+            // 現在の訪問データを更新
+            currentVisitData = visitData;
+    
+            // 進捗更新
             updateProgress(visitData);
-
+　
             // 地図を更新
             loadTemples();
 
@@ -1038,5 +1041,4 @@ document.getElementById("filter-visited")
 // ========================================
 // 開始
 // ========================================
-loadTemples();
 startVisitListener();
