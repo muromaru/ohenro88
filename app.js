@@ -80,15 +80,19 @@ function openTempleDetail(temple) {
     document.getElementById("detail-address").innerHTML =
         `${temple.prefecture}<br>${temple.address}`;
 
+    // 写真を読み込む
+    loadTemplePhotos(temple.number);
+
     // 訪問日
     const dateInput =
         document.getElementById("visit-date");
 
     if (visit) {
-        // すでに訪問済みなら保存されている日付
+
         dateInput.value = visit.date;
+
     } else {
-        // 未訪問なら今日の日付
+
         const today = new Date();
 
         const date =
@@ -255,6 +259,7 @@ function loadTemples() {
             );
         });
 }
+
 // ========================================
 // 詳細画面のボタン処理
 // ========================================
@@ -286,6 +291,94 @@ document.getElementById("detail-close")
         currentTempleNumber = null;
     });
 
+// ========================================
+// 写真アップロード
+// ========================================
+
+document.getElementById("photo-add-button")
+    .addEventListener("click", () => {
+
+        document.getElementById("photo-input").click();
+
+    });
+
+
+// 写真が選択された
+document.getElementById("photo-input")
+    .addEventListener("change", async (event) => {
+
+        const file = event.target.files[0];
+
+        if (!file) {
+            return;
+        }
+
+        if (currentTempleNumber === null) {
+            return;
+        }
+
+        const status =
+            document.getElementById("photo-status");
+
+        status.textContent = "写真をアップロード中...";
+
+        try {
+
+            // ファイル名を作成
+            const fileName =
+                `${Date.now()}_${file.name}`;
+
+            // 保存先
+            const photoRef = ref(
+                storage,
+                `photos/${String(currentTempleNumber).padStart(3, "0")}/${fileName}`
+            );
+
+            // Firebase Storageへアップロード
+            await uploadBytes(
+                photoRef,
+                file
+            );
+
+            // ダウンロードURLを取得
+            const downloadURL =
+                await getDownloadURL(photoRef);
+
+            console.log(
+                "アップロード成功:",
+                downloadURL
+            );
+
+            // 画面に写真を表示
+            const photoContainer =
+                document.getElementById("temple-photos");
+
+            const img =
+                document.createElement("img");
+
+            img.src = downloadURL;
+
+            img.className = "temple-photo";
+
+            photoContainer.appendChild(img);
+
+            status.textContent =
+                "写真をアップロードしました";
+
+        } catch (error) {
+
+            console.error(
+                "写真のアップロードに失敗しました:",
+                error
+            );
+
+            status.textContent =
+                "写真のアップロードに失敗しました";
+        }
+
+        // 同じ写真をもう一度選択できるようにする
+        event.target.value = "";
+    });
 // ========================================
 // 開始
 // ========================================
