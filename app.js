@@ -418,8 +418,6 @@ async function loadTemplePhotos(templeNumber) {
 document.getElementById("photo-add-button")
     .addEventListener("click", () => {
 
-        alert("ボタンは動いています");
-
         document.getElementById("photo-input").click();
 
     });
