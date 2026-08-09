@@ -462,56 +462,120 @@ map.on("click", () => {
 });
 
 // ========================================
-// 詳細画面を下方向にスワイプして閉じる
+// iPhone風ボトムシート操作
 // ========================================
 
 const detailPanel =
     document.getElementById("temple-detail");
 
-let touchStartY = 0;
-let touchStartX = 0;
+const detailHandle =
+    document.querySelector(".detail-handle");
 
-detailPanel.addEventListener(
+let touchStartY = 0;
+let currentTranslateY = 0;
+let isDraggingDetail = false;
+
+// ----------------------------------------
+// 指を置いた
+// ----------------------------------------
+
+detailHandle.addEventListener(
     "touchstart",
     (event) => {
 
         const touch = event.touches[0];
 
         touchStartY = touch.clientY;
-        touchStartX = touch.clientX;
+
+        currentTranslateY = 0;
+
+        isDraggingDetail = true;
+
+        detailPanel.style.transition = "none";
 
     },
     { passive: true }
 );
 
-detailPanel.addEventListener(
-    "touchend",
+// ----------------------------------------
+// 指を動かしている
+// ----------------------------------------
+
+detailHandle.addEventListener(
+    "touchmove",
     (event) => {
 
-        const touch = event.changedTouches[0];
+        if (!isDraggingDetail) {
+            return;
+        }
+
+        const touch = event.touches[0];
 
         const deltaY =
             touch.clientY - touchStartY;
 
-        const deltaX =
-            touch.clientX - touchStartX;
+        // 上方向には動かさない
+        if (deltaY < 0) {
+            currentTranslateY = 0;
+        } else {
+            currentTranslateY = deltaY;
+        }
 
-        // 横方向のスワイプは無視
-        if (Math.abs(deltaX) > Math.abs(deltaY)) {
+        detailPanel.style.transform =
+            `translateY(${currentTranslateY}px)`;
+
+    },
+    { passive: true }
+);
+
+// ----------------------------------------
+// 指を離した
+// ----------------------------------------
+
+detailHandle.addEventListener(
+    "touchend",
+    () => {
+
+        if (!isDraggingDetail) {
             return;
         }
 
-        // 上方向へのスクロールは何もしない
-        if (deltaY <= 80) {
-            return;
-        }
+        isDraggingDetail = false;
 
-        // 詳細画面が一番上にいるときだけ閉じる
-        if (detailPanel.scrollTop === 0) {
+        detailPanel.style.transition =
+            "transform 0.25s ease";
 
-            detailPanel.classList.add("hidden");
+        // 120px以上下げたら閉じる
+        if (currentTranslateY > 120) {
 
-            currentTempleNumber = null;
+            detailPanel.style.transform =
+                "translateY(100%)";
+
+            setTimeout(() => {
+
+                detailPanel.classList.add("hidden");
+
+                detailPanel.style.transform = "";
+
+                detailPanel.style.transition = "";
+
+                currentTempleNumber = null;
+
+            }, 250);
+
+        } else {
+
+            // 元の位置に戻す
+            detailPanel.style.transform =
+                "translateY(0)";
+
+            setTimeout(() => {
+
+                detailPanel.style.transform = "";
+
+                detailPanel.style.transition = "";
+
+            }, 250);
 
         }
 
