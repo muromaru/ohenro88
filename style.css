@@ -210,17 +210,56 @@ h1 {
     cursor: pointer;
 }
 
+/* ========================================
+   写真ギャラリー
+======================================== */
+
+#temple-photos {
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 10px;
+
+    margin-top: 10px;
+}
+
+/* 写真を囲むdiv */
+.photo-wrapper {
+    position: relative;
+}
+
 /* 写真 */
 .temple-photo {
     width: 100%;
-
-    max-height: 300px;
-
+    height: 160px;
     object-fit: contain;
-
     border-radius: 10px;
-
     display: block;
+    cursor: pointer;
+    background: #f0f0f0;
+}
+
+/* 写真削除ボタン */
+.photo-delete-button {
+    position: absolute;
+
+    right: 5px;
+    bottom: 5px;
+
+    padding: 5px 8px;
+
+    border: none;
+
+    border-radius: 6px;
+
+    background: rgba(0, 0, 0, 0.7);
+
+    color: white;
+
+    font-size: 12px;
+
+    cursor: pointer;
 }
 
 /* アップロード状態 */
