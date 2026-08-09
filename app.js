@@ -6,7 +6,8 @@ import {
     ref,
     uploadBytes,
     getDownloadURL,
-    listAll
+    listAll,
+    deleteObject
 } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-storage.js";
 
 
@@ -297,72 +298,114 @@ document.getElementById("detail-close")
 // ========================================
 
 async function loadTemplePhotos(templeNumber) {
-
     const photoContainer =
         document.getElementById("temple-photos");
-
     const status =
         document.getElementById("photo-status");
-
-        // デバッグ情報を画面に表示
-        status.textContent =
-            `読み込み中：第${templeNumber}番 / photos/${String(templeNumber).padStart(3, "0")}`;
-
     // 一旦、現在表示されている写真を消す
     photoContainer.innerHTML = "";
-
-    status.textContent = "写真を読み込み中...";
-
+    status.textContent =
+        `写真を読み込み中...`;
     try {
-
         // 寺ごとのフォルダ
         const folderRef = ref(
             storage,
             `photos/${String(templeNumber).padStart(3, "0")}`
         );
-
-        //デバッグ情報
-        status.textContent =
-            `Firebase：photos/${String(templeNumber).padStart(3, "0")}`;
-        
         // フォルダ内のファイル一覧を取得
         const result = await listAll(folderRef);
-
         // 写真がない場合
         if (result.items.length === 0) {
-
             status.textContent =
                 "まだ写真はありません";
-
             return;
         }
-
         // 写真を1枚ずつ取得
         for (const itemRef of result.items) {
-
+            // ダウンロードURL
             const downloadURL =
                 await getDownloadURL(itemRef);
-
+            // ------------------------------
+            // 写真を囲むdiv
+            // ------------------------------
+            const photoWrapper =
+                document.createElement("div");
+            photoWrapper.className =
+                "photo-wrapper";
+            // ------------------------------
+            // 写真
+            // ------------------------------
             const img =
                 document.createElement("img");
-
             img.src = downloadURL;
-
-            img.className = "temple-photo";
-
-            photoContainer.appendChild(img);
+            img.className =
+                "temple-photo";
+            // ------------------------------
+            // 削除ボタン
+            // ------------------------------
+            const deleteButton =
+                document.createElement("button");
+            deleteButton.textContent =
+                "🗑 写真を削除";
+            deleteButton.className =
+                "photo-delete-button";
+            // ------------------------------
+            // 削除処理
+            // ------------------------------
+            deleteButton.addEventListener(
+                "click",
+                async () => {
+                    const answer =
+                        confirm(
+                            "この写真を削除しますか？"
+                        );
+                    if (!answer) {
+                        return;
+                    }
+                    try {
+                        deleteButton.disabled =
+                            true;
+                        deleteButton.textContent =
+                            "削除中...";
+                        // Firebase Storageから削除
+                        await deleteObject(itemRef);
+                        // 画面から削除
+                        photoWrapper.remove();
+                        status.textContent =
+                            "写真を削除しました";
+                    } catch (error) {
+                        console.error(
+                            "写真の削除に失敗しました:",
+                            error
+                        );
+                        alert(
+                            "写真の削除に失敗しました"
+                        );
+                        deleteButton.disabled =
+                            false;
+                        deleteButton.textContent =
+                            "🗑 写真を削除";
+                    }
+                }
+            );
+            // ------------------------------
+            // 画面に追加
+            // ------------------------------
+            photoWrapper.appendChild(img);
+            photoWrapper.appendChild(
+                deleteButton
+            );
+            photoContainer.appendChild(
+                photoWrapper
+            );
         }
-
         status.textContent =
             `${result.items.length}枚の写真`;
-
     } catch (error) {
-
         console.error(
             "写真の読み込みに失敗しました:",
             error
         );
-
         status.textContent =
             "写真の読み込みに失敗しました";
     }
