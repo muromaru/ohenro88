@@ -507,6 +507,14 @@ document.getElementById("photo-input")
         // 同じ写真をもう一度選択できるようにする
         event.target.value = "";
     });
+    
+document.getElementById("photo-viewer")
+    .addEventListener("click", () => {
+
+        document.getElementById("photo-viewer")
+            .classList.add("hidden");
+
+    });
 // ========================================
 // 開始
 // ========================================
