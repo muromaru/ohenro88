@@ -17,6 +17,7 @@ import {
     getDocs,
     setDoc,
     collection,
+    onSnapshot
     deleteDoc
 } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
 
@@ -623,6 +624,78 @@ async function getAllVisitsFromFirestore() {
     }
 }
 
+function startVisitListener() {
+
+    const visitsRef =
+        collection(db, "visits");
+
+    onSnapshot(
+        visitsRef,
+        (snapshot) => {
+
+            const visitData = {};
+
+            snapshot.forEach((docSnapshot) => {
+
+                const templeNumber =
+                    Number(docSnapshot.id);
+
+                visitData[templeNumber] =
+                    docSnapshot.data();
+
+            });
+
+            // localStorageにも反映
+            saveVisitData(visitData);
+
+            // 地図を更新
+            loadTemples();
+
+            // 現在開いている札所も更新
+            if (currentTempleNumber !== null) {
+
+                const visit =
+                    visitData[currentTempleNumber];
+
+                updateDetailStatus(visit);
+
+                const dateInput =
+                    document.getElementById(
+                        "visit-date"
+                    );
+
+                const memoInput =
+                    document.getElementById(
+                        "visit-memo"
+                    );
+
+                if (visit) {
+
+                    dateInput.value =
+                        visit.date || "";
+
+                    memoInput.value =
+                        visit.memo || "";
+
+                } else {
+
+                    memoInput.value = "";
+
+                }
+            }
+
+        },
+        (error) => {
+
+            console.error(
+                "リアルタイム監視エラー:",
+                error
+            );
+
+        }
+    );
+}
+
 // ========================================
 // 写真アップロード
 // ========================================
@@ -764,3 +837,4 @@ document.getElementById("memo-save-button")
 // 開始
 // ========================================
 loadTemples();
+startVisitListener();
