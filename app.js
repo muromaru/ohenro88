@@ -183,7 +183,10 @@ function updateDetailStatus(visit) {
     const button =
         document.getElementById("detail-visit-button");
 
-    if (visit) {
+    const isVisited =
+        !!visit && visit.visited === true;
+
+    if (isVisited) {
 
         status.innerHTML = `
             <div class="visited-info">
@@ -206,12 +209,11 @@ function updateDetailStatus(visit) {
     }
 }
 
+
 // ========================================
 // 訪問状態を変更
 // ========================================
-async function toggleVisited(
-    templeNumber
-) {
+async function toggleVisited(templeNumber) {
 
     try {
 
@@ -219,45 +221,39 @@ async function toggleVisited(
             doc(
                 db,
                 "visits",
-                String(templeNumber)
-                    .padStart(3, "0")
+                String(templeNumber).padStart(3, "0")
             );
 
         const snapshot =
-            await getDoc(
-                visitRef
+            await getDoc(visitRef);
+
+        const current =
+            snapshot.exists()
+                ? snapshot.data()
+                : null;
+
+        const isVisited =
+            !!current && current.visited === true;
+
+        if (isVisited) {
+
+            // 訪問済み → 未訪問に戻す（メモは残す）
+            await setDoc(
+                visitRef,
+                {
+                    visited: false,
+                    memo: current.memo || ""
+                }
             );
-
-        // ------------------------------
-        // すでに訪問済み
-        // ------------------------------
-
-        if (snapshot.exists()) {
-
-            await deleteDoc(
-                visitRef
-            );
-
-            // Firestoreから削除
-            // このあと説明します
 
         } else {
 
-            // --------------------------
-            // 未訪問 → 訪問済み
-            // --------------------------
-
+            // 未訪問 → 訪問済みにする（メモがあれば残す）
             const date =
-                document.getElementById(
-                    "visit-date"
-                ).value;
+                document.getElementById("visit-date").value;
 
             if (!date) {
-
-                alert(
-                    "訪問日を選択してください"
-                );
-
+                alert("訪問日を選択してください");
                 return;
             }
 
@@ -266,24 +262,18 @@ async function toggleVisited(
                 {
                     visited: true,
                     date: date,
-                    memo: ""
+                    memo: (current && current.memo) || ""
                 }
             );
         }
 
     } catch (error) {
 
-        console.error(
-            "訪問状態の変更に失敗しました:",
-            error
-        );
-
-        alert(
-            "訪問状態の変更に失敗しました\n" +
-            error.message
-        );
+        console.error("訪問状態の変更に失敗しました:", error);
+        alert("訪問状態の変更に失敗しました\n" + error.message);
     }
 }
+
 // ========================================
 // 日付を表示用に変換
 // ========================================
